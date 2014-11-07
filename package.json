@@ -1,0 +1,11 @@
+{
+  "name": "snake",
+  "description": "A package for snakes",
+  "author": "snake coop",
+  "dependencies": {
+  	"socket.io": ">= 1.x",
+  	"node-tweet-stream": "*",
+  	"express": "*"
+  },
+  "engine": "node 0.10.x"
+}
