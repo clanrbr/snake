@@ -1,15 +1,15 @@
 <!doctype html>
 <html>
-  <head>
-	<title>pikachu</title>
-  </head>
-  <body>
-	<script src="/socket.io/socket.io.js"></script>
-	<script>
-		var socket = io.connect('http://localhost:3000');
-		socket.on('news', function (data) {
-			console.log(data);
-		});
-	</script>
-  </body>
+	<head>
+		<title>pikachu</title>
+	</head>
+	<body>
+		<script src="/socket.io/socket.io.js"></script>
+		<script>
+			var socket = io.connect('http://localhost:3000');
+			socket.on('news', function (data) {
+				console.log(data);
+			});
+		</script>
+	</body>
 </html>
