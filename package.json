@@ -1,10 +1,14 @@
 {
-  "name": "snake",
-  "description": "A package for snakes",
-  "author": "snake coop",
-  "dependencies": {
-  	"socket.io": "1.x",
-  	"express": "4.x"
-  },
-  "engine": "node 0.10.x"
+	"name": "Snake",
+	"description": "Multiplayer Snake game",
+	"author": "Team 9",
+	"repository": {
+		"type" : "git",
+		"url" : "git@github.com:clanrbr/snake.git"
+	},
+	"dependencies": {
+		"socket.io": "1.x",
+		"express": "4.x"
+	},
+	"engine": "node 0.10.x"
 }
