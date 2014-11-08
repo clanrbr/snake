@@ -22,7 +22,7 @@ app.get('/*', function (req, res) {
 io.on('connection', function (socket) {
 
 	// generate random side
-	var sizes = ['left', 'right', 'top', 'down'];
+	var sizes = ['left', 'right', 'up', 'down'];
 	// shout for that side
 	setInterval(function () {
 		socket.emit('sizes', {size: sizes[Math.floor(Math.random() * 4)]});
