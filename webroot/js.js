@@ -121,8 +121,8 @@ function joinRoom(roomname) {
 			switchScreen(1);
 			snakediv=document.getElementById('snakediv');
 			snakediv.style.display="block";
-			snakediv.style.height=room.gridx*20+'px';
-			snakediv.style.width=room.gridy*20+'px';
+			snakediv.style.width=room.gridx*20+'px';
+			snakediv.style.height=room.gridy*20+'px';
 		}
 	}
 }
