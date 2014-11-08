@@ -137,6 +137,12 @@ body {
   cursor:default;
 }
 
+.bbt:hover {
+  background: #378007;
+  text-decoration: none;
+  cursor:default;
+}
+
 #main {
 	padding:20px;
 	background: #302429 url('/images/bg_body.jpg') no-repeat center top;
