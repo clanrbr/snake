@@ -1,6 +1,5 @@
 var Snake = function () {
 	this.snake = [];
-	this.box_side = 20;
 	this.current_direction = null;
 	this.next_direction = null;
 
@@ -12,8 +11,8 @@ var Snake = function () {
 	};
 
 	this.generate_snake = function (from, to) {
-		for (var x = from.x; x < to.x; x += this.box_side) {
-			for (var y = from.y; y < to.y; y += this.box_side) {
+		for (var x = from.x; x <= to.x; x++) {
+			for (var y = from.y; y <= to.y; y++) {
 				this.grow(x, y);
 			}
 		}
@@ -51,8 +50,8 @@ var Snake = function () {
 	this.move_head = function (x, y) {
 		var current_head = this.snake[0],
 			new_head = {
-				x: current_head.x + x * this.box_side,
-				y: current_head.y + y * this.box_side
+				x: current_head.x + x,
+				y: current_head.y + y
 			};
 
 		this.grow(new_head.x, new_head.y);

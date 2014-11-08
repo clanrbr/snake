@@ -10,11 +10,11 @@ function Board(){
 	this.get_free_place = function(length, min_distance_to_others){
 		return {
 			from: {
-				x: 100,
-				y: 100
+				x: 5,
+				y: 5
 			}, to: {
-				x: 200,
-				y: 120
+				x: 10,
+				y: 5
 			}
 		};
 	};

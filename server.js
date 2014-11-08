@@ -3,18 +3,17 @@ var app = require('express')(),
 	io = require('socket.io')(server),
 	port = 3000,
 	Room = require('./room.js'),
-	rooms_list = new Array(),
-	fps = 3;
+	rooms_list = new Array();
 
 server.listen(port);
 console.log('Listening on port ' + port);
 
 // For testing purposes
-var newRoom1 = new Room.Room({name: 'Noobs', total_players: 5, gridx: 1000, gridy: 1000});
+var newRoom1 = new Room.Room({name: 'Noobs', total_players: 5, gridx: 50, gridy: 50});
 rooms_list.push(newRoom1);
-var newRoom2 = new Room.Room({name: 'Mellee', total_players: 5, gridx: 1200, gridy: 600});
+var newRoom2 = new Room.Room({name: 'Mellee', total_players: 5, gridx: 60, gridy: 30});
 rooms_list.push(newRoom2);
-var newRoom3 = new Room.Room({name: 'Deathmatch', total_players: 5, gridx: 1200, gridy: 800});
+var newRoom3 = new Room.Room({name: 'Deathmatch', total_players: 5, gridx: 60, gridy: 40});
 rooms_list.push(newRoom3);
 
 // GET static content
@@ -31,20 +30,8 @@ app.get('/*', function (req, res) {
 
 // Start app code
 io.on('connection', function (socket) {
-
-	// generate random side
-	var sizes = ['left', 'right', 'up', 'down'];
-
-	// shout for that side
-	setInterval(function () {
-		if (socket.joined) {
-			socket.emit('sizes', {size: sizes[Math.floor(Math.random() * 4)]});
-		}
-	}, 1000 / fps);
-
 	// join a room
 	socket.on('joinRoom', function (data) {
-		console.log('before', rooms_list);
 		// check for existing room
 		var room_name = data.room,
 			room = rooms_list.filter(function (room) {
@@ -53,28 +40,23 @@ io.on('connection', function (socket) {
 
 		if (room) {
 			if (room.already_joined(socket.id)) {
-				socket.emit('joinRoom', 'You already play in ' + room_name);
+				socket.emit('message', 'You already play in ' + room_name);
 			} else if (room.isFull()) {
-				socket.emit('joinRoom', room_name + ' is full');
+				socket.emit('message', room_name + ' is full');
 			} else {
 				socket.join(room_name);
 				var coordinates = room.setOneMorePlayer(socket.id);
-				console.log('coords', coordinates);
 				socket.emit('coordinates', coordinates);
-				socket.emit('joinRoom', 'You are in room ' + room_name);
+				socket.emit('message', 'You are in room ' + room_name);
 				socket.joined = true;
 				emit_rooms_statistics(room_name);
 			}
 		} else {
-			socket.emit('joinRoom', 'Room with that name does not exist: ' + room_name);
+			socket.emit('message', 'Room with that name does not exist: ' + room_name);
 		}
-
-		console.log('after', rooms_list);
 	});
 
-
 	socket.on('leaveRoom', function (data) {
-		console.log('before', rooms_list);
 		// check for existing room
 		var room_name = data.room,
 			room = rooms_list.filter(function (room) {
@@ -86,16 +68,14 @@ io.on('connection', function (socket) {
 				socket.leave(room_name);
 				room.removeOnePlayer(socket.id);
 				delete socket.joined;
-				socket.emit('leaveRoom', 'You just left room ' + room_name);
+				socket.emit('message', 'You just left room ' + room_name);
 				emit_rooms_statistics(room_name);
 			} else {
-				socket.emit('leaveRoom', 'You are not in room ' + room_name);
+				socket.emit('message', 'You are not in room ' + room_name);
 			}
 		} else {
-			socket.emit('leaveRoom', 'Room with that name does not exists: ' + room_name);
+			socket.emit('message', 'Room with that name does not exists: ' + room_name);
 		}
-
-		console.log('after', rooms_list);
 	});
 
 	socket.on('rooms_statistics', function () {
