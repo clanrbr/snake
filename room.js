@@ -24,6 +24,7 @@ function Room(data) {
 
 		this.players_list.push(player);
 		this.snakes_list[player] = new Snake();
+		this.snakes_list[player].id = player;
 
 		// the last snake (just created)
 		this.snakes_list[player].generate_snake(coordinates.from, coordinates.to);

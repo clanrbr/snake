@@ -5,7 +5,7 @@ var app = require('express')(),
 	Room = require('./room.js'),
 	rooms_list = new Array(),
 	rooms_actions = {'Noobs': [], 'Mellee': [], 'Deathmatch': []},
-fps = 3,
+fps = 15,
 	sockets = {},
 	send_data = function () {
 	};
@@ -14,12 +14,9 @@ server.listen(port);
 console.log('Listening on port ' + port);
 
 // For testing purposes
-var newRoom1 = new Room.Room({name: 'Noobs', total_players: 5, gridx: 50, gridy: 50, description: 'This is the default version.'});
-rooms_list.push(newRoom1);
-var newRoom2 = new Room.Room({name: 'Mellee', total_players: 5, gridx: 60, gridy: 30, description: 'Every brick gives you superpowers'});
-rooms_list.push(newRoom2);
-var newRoom3 = new Room.Room({name: 'Deathmatch', total_players: 5, gridx: 60, gridy: 40, description: 'Eat everybody\'s tail.'});
-rooms_list.push(newRoom3);
+rooms_list.push(new Room.Room({name: 'Noobs', total_players: 5, gridx: 50, gridy: 50, description: 'This is the default version.'}));
+rooms_list.push(new Room.Room({name: 'Mellee', total_players: 5, gridx: 60, gridy: 30, description: 'Every brick gives you superpowers'}));
+rooms_list.push(new Room.Room({name: 'Deathmatch', total_players: 5, gridx: 60, gridy: 40, description: 'Eat everybody\'s tail.'}));
 
 // GET static content
 app.get('/*', function (req, res) {
@@ -154,12 +151,32 @@ io.on('connection', function (socket) {
 	});
 });
 
+var move = function (room_name, snake, direction) {
+	var next_position = snake.get_next_position(direction),
+		room = rooms_list.filter(function (room) {
+			return room.getRoomName() === room_name;
+		})[0],
+		next_position_free = room.check_free(next_position.x, next_position.y);
+
+	if (next_position_free) {
+		snake.move(direction);
+	} else {
+		var snakes_list = room.snakes_list;
+
+		for (var socket_id in snakes_list) {
+			sockets[socket_id].emit('death', socket_id);
+		}
+
+		room.removeOnePlayer(snake.id);
+	}
+};
+
 var emit_positions = function (room) {
 	var room_name = room.getRoomName(),
 		used_sockets = {};
 
 	rooms_actions[room_name].forEach(function (a) {
-		room.snakes_list[a.socket_id].move(a.direction);
+		move(room_name, room.snakes_list[a.socket_id], a.direction);
 		used_sockets[a.socket_id] = true;
 	});
 
@@ -168,7 +185,7 @@ var emit_positions = function (room) {
 			continue;
 		}
 
-		room.snakes_list[socket_id].move(room.snakes_list[socket_id].current_direction);
+		move(room_name, room.snakes_list[socket_id], room.snakes_list[socket_id].current_direction);
 	}
 
 	room.players_list.forEach(function (socket_id) {
