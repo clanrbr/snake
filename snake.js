@@ -25,6 +25,8 @@ var Snake = function () {
 			direction = this.current_direction;
 		}
 
+		var is_free = this.check_free();
+
 		switch (direction) {
 			case 'up':
 				this.move_head(0, -1);
@@ -55,6 +57,8 @@ var Snake = function () {
 			};
 
 		this.grow(new_head.x, new_head.y);
+
+		return new_head;
 	};
 	this.move_tail = function () {
 		this.reduce();

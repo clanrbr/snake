@@ -27,7 +27,7 @@ window.onload = function () {
 
 	socket.on('join_status', function (data) {
 		console.log(data);
-		if (data===1)
+		if (data === 1)
 			switchScreen(1);
 	});
 
@@ -73,6 +73,8 @@ window.onload = function () {
 	});
 
 	window.addEventListener("keydown", function (e) {
+		var prevent_default = e.keyCode >= 37 && e.keyCode <= 40;
+
 		switch (e.keyCode) {
 			case 37:
 				socket.emit('move', 'left');
@@ -87,6 +89,12 @@ window.onload = function () {
 				socket.emit('move', 'down');
 				break;
 		}
+
+		if (prevent_default) {
+			e.preventDefault();
+		}
+
+		return !prevent_default;
 	});
 };
 
