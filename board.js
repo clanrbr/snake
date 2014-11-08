@@ -8,13 +8,15 @@ function Board() {
 	};
 
 	this.get_free_place = function (length, min_distance_to_others) {
+		var r = Math.round(Math.random() * 30);
+
 		return {
 			from: {
 				x: 5,
-				y: 5
+				y: r
 			}, to: {
 				x: 10,
-				y: 5
+				y: r
 			}
 		};
 	};

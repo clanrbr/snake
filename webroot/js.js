@@ -1,21 +1,11 @@
 var io_address = 'http://localhost:3000',
 	socket = io.connect(io_address),
-	Snakes = {},
-	snakes_here = false;
+	Snakes = {};
 
 window.onload = function () {
 	socket.emit('rooms_statistics');
 
 	socket.on('data', function (data) {
-		if (!snakes_here) {
-			for (var i in data) {
-				Snakes[i] = new Snake();
-				Snakes[i].init();
-			}
-
-			snakes_here = true;
-		}
-
 		for (var i in data) {
 			Snakes[i].move(data);
 		}
@@ -29,9 +19,13 @@ window.onload = function () {
 		console.log('rooms_statistics', rooms);
 	});
 
-	socket.on('coordinates', function (coordinates) {
-		console.log('coordinates', coordinates);
-		Snakes.generate_snake(coordinates.from, coordinates.to);
+	socket.on('coordinates', function (data) {
+		console.log('coordinates', data);
+		for (var i in data) {
+			Snakes[i] = new Snake();
+			Snakes[i].init();
+			Snakes[i].generate_snake(data[i].snake[data[i].snake.length - 1], data[i].snake[0]);
+		}
 	});
 };
 
