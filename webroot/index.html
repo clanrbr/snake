@@ -5,16 +5,37 @@
 	<script src="/socket.io/socket.io.js" type="text/javascript"></script>
 	<script src="js.js" type="text/javascript"></script>
 	<script type="text/javascript">
-		var socket = io.connect('http://localhost:3000');
+		var io_address = 'http://localhost:3000',
+			socket = io.connect(io_address),
+			snake = '<div id="snakev" style="width: 20px; height: 20px; background-color: red; position: absolute; margin-top: 200px; margin-left: 200px;">&nbsp;</div>',
+			actions = {
+				top: function(){
+					document.getElementById('snakev').style.marginTop = (Number(document.getElementById('snakev').style.marginTop.split('px')[0]) - 20) + 'px';
+				},
+				down: function(){
+					document.getElementById('snakev').style.marginTop = (Number(document.getElementById('snakev').style.marginTop.split('px')[0]) + 20) + 'px';
+				},
+				right: function(){
+					document.getElementById('snakev').style.marginLeft = (Number(document.getElementById('snakev').style.marginLeft.split('px')[0]) + 20) + 'px';
+				},
+				left: function(){
+					document.getElementById('snakev').style.marginLeft = (Number(document.getElementById('snakev').style.marginLeft.split('px')[0]) - 20) + 'px';
+				}
+			};
+
+		window.onload = function(){
+			document.body.innerHTML = snake;
+		};
+
 		socket.on('sizes', function (data) {
 			console.log(data);
+			actions[data.size]();
 		});
 
 		socket.on('subscribe', function (data) {
 			socket.emit("subscribe", { room: "global" });
 			console.log(data);
 		});
-
 	</script>
 </head>
 <body>
