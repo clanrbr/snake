@@ -49,6 +49,9 @@ function Room(data) {
 			max_players: this.total_players
 		};
 	};
+	this.check_free = function(x, y){
+		return Board.check_free(x, y, this.snakes_list);
+	};
 }
 
 module.exports = {Room: Room};

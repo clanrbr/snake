@@ -4,7 +4,11 @@ var app = require('express')(),
 	port = 3000,
 	Room = require('./room.js'),
 	rooms_list = new Array(),
-	fps = 3;
+	rooms_actions = {'Noobs': [], 'Mellee': [], 'Deathmatch': []},
+fps = 3,
+	sockets = {},
+	send_data = function () {
+	};
 
 server.listen(port);
 console.log('Listening on port ' + port);
@@ -31,6 +35,8 @@ app.get('/*', function (req, res) {
 
 // Start app code
 io.on('connection', function (socket) {
+	sockets[socket.id] = socket;
+
 	// join a room
 	socket.on('joinRoom', function (data) {
 		// check for existing room
@@ -46,10 +52,15 @@ io.on('connection', function (socket) {
 				socket.emit('message', room_name + ' is full');
 			} else {
 				socket.join(room_name);
-				var coordinates = room.setOneMorePlayer(socket.id);
-				socket.emit('coordinates', coordinates);
+				room.setOneMorePlayer(socket.id);
+				socket.emit('coordinates', room.snakes_list.map(function (s) {
+					return {
+						snake: s.snake,
+						current_direction: s.current_direction
+					};
+				}));
 				socket.emit('message', 'You are in room ' + room_name);
-				socket.joined = true;
+				socket.room = room_name;
 				emit_rooms_statistics(room_name);
 			}
 		} else {
@@ -68,7 +79,7 @@ io.on('connection', function (socket) {
 			if (room.already_joined(socket.id)) {
 				socket.leave(room_name);
 				room.removeOnePlayer(socket.id);
-				delete socket.joined;
+				delete socket.room;
 				socket.emit('message', 'You just left room ' + room_name);
 				emit_rooms_statistics(room_name);
 			} else {
@@ -83,6 +94,23 @@ io.on('connection', function (socket) {
 		emit_rooms_statistics();
 	});
 
+	socket.on('move', function (direction) {
+		var room = rooms_list.filter(function (room) {
+			return room.getRoomName() === socket.room;
+		})[0];
+
+		rooms_actions[socket.room].forEach(function (s, index) {
+			if (s.socket_id === socket.id) {
+				rooms_actions[socket.room].splice(index, 1);
+			}
+		});
+
+		rooms_actions[socket.room].push({
+			socket_id: socket.id,
+			direction: direction
+		});
+	});
+
 	function emit_rooms_statistics(room) {
 		if (room) {
 			socket.to(room).emit('rooms_statistics', rooms_list.map(function (room) {
@@ -95,12 +123,20 @@ io.on('connection', function (socket) {
 		}
 	}
 
+	socket.on('disconnect', function (socket) {
+		delete sockets[socket.id];
+	});
 });
 
-setInterval(function(){
-	rooms_list.forEach(function(r){
-		r.snakes_list.forEach(function(s){
-			console.log(s);
+var emit_positions = function (room) {
+	room.players_list.forEach(function (socket_id, index) {
+		sockets[socket_id].emit('data', {
 		});
+	});
+};
+
+setInterval(function () {
+	rooms_list.forEach(function (r) {
+		emit_positions(r);
 	});
 }, 1000 / fps);
