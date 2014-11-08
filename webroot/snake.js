@@ -1,13 +1,10 @@
-function Snake(){
+function Snake() {
 	this.box = null;
 	this.box_side = 20;
 	this.snake = [];
 	this.current_direction = null;
 	this.init = function () {
 		this.box = document.getElementById('snakediv');
-//	    window.addEventListener("keydown", function(e){
-//			console.log(e.keyCode);
-//		});
 	};
 	this.generate_pixel = function (x, y, tail) {
 		this.box.innerHTML = this.box.innerHTML + '<div class="snake_element" style="width: 20px; height: 20px; background-color: red; position: absolute; margin-top: ' + y * this.box_side + 'px; margin-left: ' + x * this.box_side + 'px;">&nbsp;</div>';
@@ -27,8 +24,8 @@ function Snake(){
 		}
 	};
 	this.generate_snake = function (from, to) {
-		for (var x = from.x; x <= to.x; x ++) {
-			for (var y = from.y; y <= to.y; y ++) {
+		for (var x = from.x; x <= to.x; x++) {
+			for (var y = from.y; y <= to.y; y++) {
 				this.generate_pixel(x, y, false);
 			}
 		}
@@ -114,4 +111,5 @@ function Snake(){
 
 		return opposite_direction;
 	};
-};
+}
+;

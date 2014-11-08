@@ -95,10 +95,6 @@ io.on('connection', function (socket) {
 	});
 
 	socket.on('move', function (direction) {
-		var room = rooms_list.filter(function (room) {
-			return room.getRoomName() === socket.room;
-		})[0];
-
 		rooms_actions[socket.room].forEach(function (s, index) {
 			if (s.socket_id === socket.id) {
 				rooms_actions[socket.room].splice(index, 1);

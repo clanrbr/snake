@@ -27,6 +27,15 @@ window.onload = function () {
 			Snakes[i].generate_snake(data[i].snake[data[i].snake.length - 1], data[i].snake[0]);
 		}
 	});
+
+	window.addEventListener("keydown", function (e) {
+		switch (e.keyCode) {
+			case 39:
+				socket.emit('move', 'right');
+				console.log('moved to the right');
+				break;
+		}
+	});
 };
 
 function joinRoom(roomnumb) {
