@@ -1,6 +1,8 @@
 var io_address = 'http://localhost:3000',
 	socket = io.connect(io_address),
 	Snakes = {};
+	statistics= [];
+
 
 window.onload = function () {
 	socket.emit('rooms_statistics');
@@ -27,9 +29,9 @@ window.onload = function () {
 
 	socket.on('join_status', function (data) {
 		console.log(data);
-		if (data===1) {
-			switchScreen(1);
-		}
+		// if (data===1) {
+		// 	switchScreen(1);
+		// }
 	});
 
 	socket.on('leave_status', function (data) {
@@ -56,6 +58,8 @@ window.onload = function () {
 		document.getElementById('current_players3').innerHTML = rooms[2].current_players;
 		document.getElementById('max_players3').innerHTML = rooms[2].max_players;
 
+
+		statistics=rooms;
 		console.log('rooms_statistics', rooms);
 	});
 
@@ -90,7 +94,7 @@ window.onload = function () {
 	});
 };
 
-function joinRoom(roomnumb) {
+function startGame(roomnumb) {
 	if (roomnumb === 1) {
 		socket.emit('joinRoom', {room: 'Noobs'});
 	} else if (roomnumb === 2) {
@@ -99,6 +103,32 @@ function joinRoom(roomnumb) {
 	else if (roomnumb === 3) {
 		socket.emit('joinRoom', {room: 'Deathmatch'});
 	}
+}
+
+function joinRoom(roomname) {
+
+	if (roomname) {
+		room = statistics.filter(function (room) {
+			return room.name === roomname;
+		})[0];
+
+		if (room) {
+			switchScreen(1);
+			snakediv=document.getElementById('snakediv');
+			snakediv.style.display="block";
+			snakediv.style.height=room.gridx+'px';
+			snakediv.style.width=room.gridy+'px';
+		}
+	}
+
+	// if (roomnumb === 1) {
+	// 	socket.emit('joinRoom', {room: 'Noobs'});
+	// } else if (roomnumb === 2) {
+	// 	socket.emit('joinRoom', {room: 'Mellee'});
+	// }
+	// else if (roomnumb === 3) {
+	// 	socket.emit('joinRoom', {room: 'Deathmatch'});
+	// }
 }
 
 function switchScreen(show_screen) {
