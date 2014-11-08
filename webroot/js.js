@@ -47,6 +47,25 @@ function joinRoom(roomnumb) {
 	}
 }
 
+function switchScreen(show_screen) {
+	begin_screen=document.getElementById('begin_screen');
+	input_screen=document.getElementById('input_screen');
+	board_screen=document.getElementById('board_screen');
+
+	begin_screen.style.display="none";
+	input_screen.style.display="none";
+	board_screen.style.display="none";
+
+	if (show_screen===1) {
+		input_screen.style.display="block";
+	} else if (show_screen===2) {
+		board_screen.style.display="block";
+	} else {
+		begin_screen.style.display="block";
+	}
+	return false;
+}
+
 function leaveRoom() {
 	socket.emit('leaveRoom', {room: 'Noobs'});
 }

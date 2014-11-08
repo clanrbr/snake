@@ -88,3 +88,15 @@ body {
 	background: url('/images/sprite.png') no-repeat -2px -647px;
 	text-decoration: none;
 }
+
+#begin_screen {
+	display:block;
+}
+
+#input_screen {
+	display:none;
+}
+
+#board_screen {
+	display:none;
+}
