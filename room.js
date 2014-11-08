@@ -36,7 +36,6 @@ function Room(data) {
 		this.players_list.splice(player_index, 1);
 		this.snakes_list.splice(player_index, 1);
 	};
-	this.
 	this.isFull = function () {
 		return this.getNumberOfPlayers() >= this.total_players;
 	};
