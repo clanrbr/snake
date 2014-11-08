@@ -6,6 +6,11 @@ body {
 	background-color:#92baf7;
 }
 
+#menu_text {
+	position:relative;
+	left:380px;
+}
+
 #container {
 	height:100%;
 	width:100%;
@@ -41,6 +46,7 @@ body {
 	font-size: 100%;
 	vertical-align: baseline;
 	background: transparent;
+	font-family:cursive;
 }
 
 #actualMenu li {
@@ -55,7 +61,7 @@ body {
 	color:#fff;
 	text-decoration: none;
 	font-weight:700;
-	font-size:14px;
+	font-size:18px;
 }
 
 #actualMenu li.active a {
@@ -104,6 +110,23 @@ body {
   font-size: 31px;
   background: #56ab2b;
   padding: 15px 25px 15px 25px;
+  text-decoration: none;
+  cursor:default;
+}
+
+.bbt {
+  -webkit-border-radius: 14;
+  -moz-border-radius: 14;
+  border-radius: 14px;
+  text-shadow: 0px 0px 0px #000000;
+  -webkit-box-shadow: 0px 0px 2px #666666;
+  -moz-box-shadow: 0px 0px 2px #666666;
+  box-shadow: 0px 0px 2px #666666;
+  font-family: Georgia;
+  color: #ffffff;
+  font-size: 31px;
+  background: #56ab2b;
+  padding: 15px 25px 15px 106px;
   text-decoration: none;
   cursor:default;
 }
