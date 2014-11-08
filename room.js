@@ -26,21 +26,15 @@ function Room(data) {
 		this.snakes_list.splice(player_index, 1);
 	};
 	this.isFull = function () {
-		if (this.total_players === this.getNumberOfPlayers())
-			return true;
-
-		return false;
+		return this.total_players >= this.players_list.length;
 	};
-	this.getNumberOfPlayers= function() {
-		return this.players_list.length;
-	}
 	this.already_joined = function (player) {
 		return this.players_list.indexOf(player) > -1;
 	};
 	this.get_statistics = function () {
 		return {
 			name: this.name,
-			current_players: getNumberOfPlayers(),
+			current_players: this.players_list.length,
 			max_players: this.total_players
 		};
 	};
