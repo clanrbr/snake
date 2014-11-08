@@ -126,7 +126,7 @@ body {
   color: #ffffff;
   font-size: 31px;
   background: #56ab2b;
-  padding: 15px 25px 15px 106px;
+  padding: 15px 66px 15px 66px;
   text-decoration: none;
   cursor:default;
 }
@@ -198,10 +198,9 @@ body {
 
 
 .board_screen {
-	display:none;
 	margin: 30px auto;
-	width:800px;
-	height:500px;
+	width:1000px;
+	height:800px;
 	border: 1px solid red;
 	overflow:hidden;
 }
