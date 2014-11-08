@@ -90,10 +90,6 @@ body {
 	display:none;
 }
 
-#board_screen {
-	display:none;
-}
-
 
 .btn {
   -webkit-border-radius: 14;
@@ -175,4 +171,12 @@ body {
 
 .error_txt {
 	color:#e74c48;
+}
+
+
+.board_screen {
+	margin: 30px auto;
+	width:1000px;
+	height:800px;
+	border: 1px solid red;
 }
