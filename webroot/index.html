@@ -8,17 +8,16 @@
 	<link rel="stylesheet" href="styles.css"/>
 </head>
 <body>
-	<div id="snakediv"></div>
 	<div id="container">
 		<div id="upline">
 			<div id="menu">
-				<div id="logo">ЯКОТО ЛОГО</div>
+				<div id="logo">Our Cool Logo</div>
 				<div>
 			        <ul id="actualMenu">
-			          <li class="active"><a href="/index.html">Вкъщи</a></li>
-			          <li><a href="#">Зали</a></li>
-			          <li><a href="#">Статистика</a></li>
-			          <li><a href="#">Вход</a></li>
+			          <li class="active"><a href="/index.html">Home</a></li>
+			          <li><a href="#">Room</a></li>
+			          <li><a href="#">Statistics</a></li>
+			          <li><a href="#">Login</a></li>
 			        </ul>
 	  			</div>
 			</div>
@@ -26,10 +25,10 @@
 		<div class="cta_text">
 			<div id="begin_screen">
 		      <p>
-		        <span>Играй Snakes с приятели</span>
+		        <span>Play Snakes with friends</span>
 		      </p>
 		      <p>
-		        <span style="font-size:20px;">Избери една от следните стаи:</span>
+		        <span style="font-size:20px;">Choose one of the rooms:</span>
 		      </p>
 			  <div id="buttons">
 				<div><a id="room1" type="button" class="bbt" class="btn" onclick="joinRoom(1);">Noobs</a></div>
@@ -37,45 +36,43 @@
 				<div><a id="room3" type="button" class="btn" onclick="joinRoom(3);">Deathmatch</a></div>
 			  </div>
 		  	</div>
-		  	<div id="board_screen">
-		      <form>
-		      	<input type="text" name="username" value=""/>
-		      	<input type="button" value="Започни игра" name="username"/>
-		      </form>
-		  	</div>
 	    </div>
 
 	    <div id="main">
 	    	<div id="input_screen" class="position_middle">
-    		  <h2 class="luck small">Въведи си името</h2>
+    		  <h2 class="luck small">Enter your username:</h2>
+    		  <span class="color_white">Error: <span class="error_txt" id="room_error">!!!dasdasda</span></span>
 		      <form method="post" name="choose_name" action="cool_action">
-		      	<input type="text" name="username" value=""/>
-		      	<input type="button" value="Започни игра" name="username"/>
+		      	<input class="input_field" type="text" name="username" value=""/>
+		      	<div><a id="room3" type="button" class="btn" onclick="startGame();">Start a game</a></div>
 		      </form>
 		  	</div>
 
+		  	<div id="snakediv" style="display:block;" class="board_screen">
+		  	</div>
+
 	    	<div class="position_middle">
-	    		<h2 class="luck big">Описание на стаите</h2>
+	    		<h2 class="luck big">Description of the rooms</h2>
 	    	</div>
 	    	<div class="position_middle">
-		      <h2 class="luck small">Стая <span id="roomname1"></span></h2>
-		      <span class="color_white">Статистика:</span>
-		      <p>В момента играят <span id="current_players1"></span> от общо <span id="max_players1"></span> играчи.</p>
-		      <span class="color_white">Правила:</span>
+		      <h2 class="luck small">Room <span id="roomname1"></span></h2>
+		      <span class="color_white">Statistic for this room:</span>
+		      <p>At the moment <span id="current_players1"></span> are playing, total of <span id="max_players1"></span> players.</p>
+		      <span class="color_white">Rules:</span>
 		      <p id="roomdescription1"></p>
 		    </div>
 		    <div class="position_middle">
-		      <h2 class="luck small">Стая <span id="roomname2"></span></h2>
-		      <span class="color_white">Статистика:</span>
-		      <p>В момента играят <span id="current_players2"></span> от общо <span id="max_players2"></span> играчи.</p>
-		      <span class="color_white">Правила:</span>
+		      <h2 class="luck small">Room <span id="roomname2"></span></h2>
+		      <span class="color_white">Statistic for this room:</span>
+		      <p>At the moment <span id="current_players2"></span> are playing, total of <span id="max_players2"></span> players.</p>
+		      <span class="color_white">Rules:</span>
 		      <p id="roomdescription2"></p>
 		    </div>
 		    <div class="position_middle">
-		      <h2 class="luck">Стая <span id="roomname3"></span></h2>
-		      <span class="color_white">Статистика:</span>
-		      <p>В момента играят <span id="current_players3"></span> от общо <span id="max_players3"></span> играчи.</p>
-		      <span class="color_white">Правила:</span>
+		      <h2 class="luck">Room <span id="roomname3"></span></h2>
+		      <span class="color_white">Statistic for this room:</span>
+		      <p>At the moment <span id="current_players3"></span> are playing, total of <span id="max_players3"></span> players.</p>
+		      <span class="color_white">Rules:</span>
 		      <p id="roomdescription3"></p>
 		    </div>
 	    </div>

@@ -90,10 +90,6 @@ body {
 	display:none;
 }
 
-#board_screen {
-	display:none;
-}
-
 
 .btn {
   -webkit-border-radius: 14;
@@ -174,3 +170,31 @@ body {
 	color:#FFF;
 }
 
+.input_field {
+	background-color: #231a1e;
+	border: 1px solid #171114;
+	border-radius: 5px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	box-shadow: 0 1px 0 rgba(255,255,255,0.10);
+	height: 35px;
+	width: 460px;
+	margin-bottom: 0;
+	float: left;
+	color: #fff;
+	margin-top: 15px;
+	outline:none;
+}
+
+.error_txt {
+	color:#e74c48;
+}
+
+
+.board_screen {
+	margin: 30px auto;
+	width:1000px;
+	height:800px;
+	border: 1px solid red;
+	overflow:hidden;
+}
