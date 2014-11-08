@@ -15,6 +15,9 @@ function Room(data) {
 	this.getRoomName = function () {
 		return this.name;
 	};
+	this.getNumberOfPlayers = function () {
+		return this.players_list.length;
+	}
 	this.setOneMorePlayer = function (player) {
 		var current_players_number = this.players_list.length,
 			coordinates = Board.get_free_place(5, 5);
@@ -33,8 +36,9 @@ function Room(data) {
 		this.players_list.splice(player_index, 1);
 		this.snakes_list.splice(player_index, 1);
 	};
+	this.
 	this.isFull = function () {
-		return this.players_list.length >= this.total_players;
+		return this.getNumberOfPlayers() >= this.total_players;
 	};
 	this.already_joined = function (player) {
 		return this.players_list.indexOf(player) > -1;
@@ -42,7 +46,7 @@ function Room(data) {
 	this.get_statistics = function () {
 		return {
 			name: this.name,
-			current_players: this.players_list.length,
+			current_players: this.getNumberOfPlayers(),
 			max_players: this.total_players
 		};
 	};
