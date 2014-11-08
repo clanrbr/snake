@@ -28,6 +28,10 @@
 		socket.on('joinRoom', function (data) {
 			console.log(data);
 		});
+		
+		socket.on('leaveRoom', function (data) {
+			console.log(data);
+		});
 
 		socket.on('rooms_statistics', function(rooms){
 			console.log('rooms_statistics', rooms);
@@ -37,6 +41,7 @@
 <body>
 	<!--<input type="button" value="Create a room" onclick="createRoom();"/>-->
 	<input type="button" value="Join a room" onclick="joinRoom();"/>
+	<input type="button" value="Leave a room" onclick="leaveRoom();"/>
 	<div id="snakediv"></div>
 </body>
 </html>

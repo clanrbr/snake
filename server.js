@@ -65,7 +65,7 @@ io.on('connection', function (socket) {
 		var room_name = data.room,
 			room = rooms_list.filter(function (room) {
 				return room.getRoomName() === room_name;
-			});
+			})[0];
 
 //		var i = 0;
 //		var room_found = 0;
@@ -92,14 +92,14 @@ io.on('connection', function (socket) {
 //			socket.emit('joinRoom', 'Room with that name does not exists: ' + data.room);
 //		}
 
-		if (room[0]) {
-			if (room[0].isFull()) {
-				socket.emit('joinRoom', room_name + ' is full');
-			} else if (room[0].already_joined(socket.id)) {
+		if (room) {
+			if (room.already_joined(socket.id)) {
 				socket.emit('joinRoom', 'You already play in ' + room_name);
+			} else if (room.isFull()) {
+				socket.emit('joinRoom', room_name + ' is full');
 			} else {
 				socket.join(data.room);
-				room[0].setOneMorePlayer(socket.id);
+				room.setOneMorePlayer(socket.id);
 				socket.emit('joinRoom', 'You are in room ' + data.room);
 				socket.emit('rooms_statistics', rooms_list);
 			}
@@ -112,31 +112,53 @@ io.on('connection', function (socket) {
 
 
 	socket.on('leaveRoom', function (data) {
+		console.log('before', rooms_list);
 		// check for existing room
-		var i = 0;
-		var room_found = 0;
-		while (i < rooms_list.length) {
-			if (rooms_list[i].getRoomName() === data.room) {
-				room_found = 1;
-				break;
+		var room_name = data.room,
+			room = rooms_list.filter(function (room) {
+				return room.getRoomName() === room_name;
+			})[0];
+
+//		// check for existing room
+//		var i = 0;
+//		var room_found = 0;
+//		while (i < rooms_list.length) {
+//			if (rooms_list[i].getRoomName() === data.room) {
+//				room_found = 1;
+//				break;
+//			}
+//			i++;
+//		}
+//
+//		if (room_found === 1) {
+//			socket.leave(data.room);
+//			rooms_list[i].removeOnePlayer(socket.id);
+//			socket.emit('leaveroom', 'You just left room ' + data.room);
+//			emit_rooms_statistics();
+//		}
+
+		if (room) {
+			if (room.already_joined(socket.id)) {
+				socket.leave(room_name);
+				room.removeOnePlayer(socket.id);
+				socket.emit('leaveRoom', 'You just left room ' + room_name);
+				emit_rooms_statistics();
+			} else {
+				socket.emit('leaveRoom', 'You are not in room ' + room_name);
 			}
-			i++;
+		} else {
+			socket.emit('leaveRoom', 'Room with that name does not exists: ' + room_name);
 		}
 
-		if (room_found === 1) {
-			socket.leave(data.room);
-			rooms_list[i].removeOnePlayer();
-			socket.emit('leaveroom', 'You just left room ' + data.room);
-			emit_rooms_statistics();
-		}
+		console.log('after', rooms_list);
 	});
 
 	socket.on('get_rooms', function () {
 		emit_rooms_statistics();
 	});
 
-	function emit_rooms_statistics(){
-		socket.emit('rooms_statistics', rooms_list.map(function(room){
+	function emit_rooms_statistics() {
+		socket.emit('rooms_statistics', rooms_list.map(function (room) {
 			return room.get_statistics();
 		}));
 	}

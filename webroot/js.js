@@ -5,3 +5,6 @@ function joinRoom() {
 //	socket.emit('joinRoom', { room: Math.floor(Math.random()*100) });
 	socket.emit('joinRoom', { room: 'Noobs' });
 }	
+function leaveRoom() {
+	socket.emit('leaveRoom', { room: 'Noobs' });
+}	
