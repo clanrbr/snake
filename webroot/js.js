@@ -1,6 +1,9 @@
 var io_address = 'http://localhost:3000',
 	socket = io.connect(io_address),
 	Snakes = {};
+	statistics= [];
+	current_room='';
+
 
 window.onload = function () {
 	socket.emit('rooms_statistics');
@@ -27,8 +30,6 @@ window.onload = function () {
 
 	socket.on('join_status', function (data) {
 		console.log(data);
-		if (data === 1)
-			switchScreen(1);
 	});
 
 	socket.on('leave_status', function (data) {
@@ -37,7 +38,6 @@ window.onload = function () {
 
 
 	socket.on('rooms_statistics', function (rooms) {
-		// rooms.filter
 		room1 = document.getElementById('room1').innerHTML = rooms[0].name;
 		document.getElementById('roomname1').innerHTML = rooms[0].name;
 		document.getElementById('roomdescription1').innerHTML = rooms[0].description;
@@ -56,6 +56,8 @@ window.onload = function () {
 		document.getElementById('current_players3').innerHTML = rooms[2].current_players;
 		document.getElementById('max_players3').innerHTML = rooms[2].max_players;
 
+
+		statistics=rooms;
 		console.log('rooms_statistics', rooms);
 	});
 
@@ -102,29 +104,40 @@ window.onload = function () {
 	});
 };
 
-function joinRoom(roomnumb) {
-//	socket.emit('joinRoom', { room: Math.floor(Math.random()*100) });
-	if (roomnumb === 1) {
-		socket.emit('joinRoom', {room: 'Noobs'});
-	} else if (roomnumb === 2) {
-		socket.emit('joinRoom', {room: 'Mellee'});
+function startGame() {
+	if (current_room) {
+		socket.emit('joinRoom', {room: current_room});
 	}
-	else if (roomnumb === 3) {
-		socket.emit('joinRoom', {room: 'Deathmatch'});
+}
+
+function joinRoom(roomname) {
+	if (roomname) {
+		room = statistics.filter(function (room) {
+			return room.name === roomname;
+		})[0];
+
+		if (room) {
+			current_room=roomname;
+			switchScreen(1);
+			snakediv=document.getElementById('snakediv');
+			snakediv.style.display="block";
+			snakediv.style.height=room.gridx+'px';
+			snakediv.style.width=room.gridy+'px';
+		}
 	}
 }
 
 function switchScreen(show_screen) {
 	input_screen = document.getElementById('input_screen');
-	board_screen = document.getElementById('board_screen');
+	// board_screen = document.getElementById('board_screen');
 
 	input_screen.style.display = "none";
-	board_screen.style.display = "none";
+	// board_screen.style.display = "none";
 
 	if (show_screen === 1) {
 		input_screen.style.display = "block";
 	} else if (show_screen === 2) {
-		board_screen.style.display = "block";
+		// board_screen.style.display = "block";
 	}
 }
 

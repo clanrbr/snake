@@ -119,6 +119,10 @@ io.on('connection', function (socket) {
 		});
 	});
 
+	socket.on('getInfoRoom',function(room) {
+
+	});
+
 	function emit_rooms_statistics(room) {
 		if (room) {
 			socket.to(room).emit('rooms_statistics', rooms_list.map(function (room) {

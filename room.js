@@ -45,6 +45,8 @@ function Room(data) {
 			current_players: this.getNumberOfPlayers(),
 			max_players: this.total_players,
 			description: this.description,
+			gridx: this.gridx,
+			gridy: this.gridy
 		};
 	};
 	this.check_free = function(x, y){
