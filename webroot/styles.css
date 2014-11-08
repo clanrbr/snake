@@ -222,3 +222,7 @@ body {
 	background-color: red;
 	position: absolute; 
 }
+
+#startgame {
+	margin-left:100px;
+}

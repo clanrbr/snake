@@ -5,7 +5,7 @@ var app = require('express')(),
 	Room = require('./room.js'),
 	rooms_list = new Array(),
 	rooms_actions = {'Noobs': [], 'Mellee': [], 'Deathmatch': []},
-fps = 15,
+fps = 2,
 	sockets = {},
 	send_data = function () {
 	};
