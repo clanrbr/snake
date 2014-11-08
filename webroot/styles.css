@@ -149,3 +149,7 @@ body {
 	margin: 30px auto;
 	width: 960px;
 }
+#buttons {
+	width:100%;
+	text-align:center;
+}
