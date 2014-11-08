@@ -7,7 +7,7 @@ server.listen(port);
 console.log('Listening on port ' + port);
 
 // GET /index.html
-app.get('/', function (req, res) {
+app.get('*', function (req, res) {
 	res.sendFile(__dirname + '/webroot/index.html');
 });
 
@@ -22,15 +22,15 @@ io.on('connection', function (socket) {
 	}, 5000);
 
 	// join a room
-	socket.emit('subscribe',1);
 	socket.on('subscribe', function(data) { 
 		socket.join(data.room);
 		socket.emit('You are in room '+data.room);
 	});
 
+	socket.on('unsubscribe', function(data) {
+		socket.leave(data.room); 
+		socket.emit('You just left room '+data.room);
+	});
+
 
 });
-
-// socket.on('unsubscribe', function(data) {
-// 	socket.leave(data.room); 
-// });
