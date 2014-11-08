@@ -124,6 +124,14 @@ body {
 	/* z-index: 810; */
 	position: relative;
 }
+
+#main .luck {
+	font-size: 36px;
+	color: #c5db3b;
+	font-family: 'Luckiest Guy', cursive;
+	font-weight: 400;
+	text-transform: uppercase;
+}
 #main p{
 	font-size: 13px;
 	color: #fff;
