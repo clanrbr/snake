@@ -112,6 +112,23 @@ body {
   cursor:default;
 }
 
+.bbt {
+  -webkit-border-radius: 14;
+  -moz-border-radius: 14;
+  border-radius: 14px;
+  text-shadow: 0px 0px 0px #000000;
+  -webkit-box-shadow: 0px 0px 2px #666666;
+  -moz-box-shadow: 0px 0px 2px #666666;
+  box-shadow: 0px 0px 2px #666666;
+  font-family: Georgia;
+  color: #ffffff;
+  font-size: 31px;
+  background: #56ab2b;
+  padding: 15px 25px 15px 106px;
+  text-decoration: none;
+  cursor:default;
+}
+
 .btn:hover {
   background: #378007;
   text-decoration: none;
@@ -156,3 +173,4 @@ body {
 .color_white {
 	color:#FFF;
 }
+
