@@ -40,7 +40,7 @@ function Room(data) {
 	this.get_statistics = function () {
 		return {
 			name: this.name,
-			current_players: getNumberOfPlayers(),
+			current_players: this.getNumberOfPlayers(),
 			max_players: this.total_players
 		};
 	};
