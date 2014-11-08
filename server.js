@@ -32,5 +32,4 @@ io.on('connection', function (socket) {
 		socket.emit('You just left room '+data.room);
 	});
 
-
 });
