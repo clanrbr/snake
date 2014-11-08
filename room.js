@@ -1,8 +1,9 @@
 var Snake = require('./snake.js').Snake,
-	Board = new (require('./board.js').Board)();
+	Board = require('./board.js').Board;
 
 function Room(data) {
-	Board.init(data.gridx, data.gridy);
+	this.Board = new Board();
+	this.Board.init(data.gridx, data.gridy);
 
 	this.name = data.name;
 	this.total_players = data.total_players;
@@ -20,7 +21,7 @@ function Room(data) {
 		return this.players_list.length;
 	};
 	this.setOneMorePlayer = function (player) {
-		var coordinates = Board.get_free_place(5, 5);
+		var coordinates = this.Board.get_free_place(5, 5);
 
 		this.players_list.push(player);
 		this.snakes_list[player] = new Snake();
@@ -50,7 +51,7 @@ function Room(data) {
 		};
 	};
 	this.check_free = function(x, y){
-		return Board.check_free(x, y, this.snakes_list);
+		return this.Board.check_free(x, y, this.snakes_list);
 	};
 }
 
