@@ -4,17 +4,17 @@ var app = require('express')(),
 	port = 3000,
 	Room = require('./room.js'),
 	rooms_list = new Array(),
-	fps = 2;
+	fps = 3;
 
 server.listen(port);
 console.log('Listening on port ' + port);
 
 // For testing purposes
-var newRoom1 = new Room.Room({name: 'Noobs', total_players: 5, gridx: 1000, gridy: 1000, number_of_players: 0});
+var newRoom1 = new Room.Room({name: 'Noobs', total_players: 5, gridx: 1000, gridy: 1000 });
 rooms_list.push(newRoom1);
-var newRoom2 = new Room.Room({name: 'Mellee', total_players: 5, gridx: 1200, gridy: 600, number_of_players: 0});
+var newRoom2 = new Room.Room({name: 'Mellee', total_players: 5, gridx: 1200, gridy: 600 });
 rooms_list.push(newRoom2);
-var newRoom3 = new Room.Room({name: 'Deathmatch', total_players: 5, gridx: 1200, gridy: 800, number_of_players: 0});
+var newRoom3 = new Room.Room({name: 'Deathmatch', total_players: 5, gridx: 1200, gridy: 800 });
 rooms_list.push(newRoom3);
 
 // GET static content
@@ -43,7 +43,7 @@ io.on('connection', function (socket) {
 
 //	// create a room
 //	socket.on('createRoom', function (data) {
-//		var newRoom = new rooms.rooms({name: data.room, total_players: 5, gridx: 5, gridy: 5, number_of_players: 1});
+//		var newRoom = new rooms.rooms({name: data.room, total_players: 5, gridx: 5, gridy: 5 });
 //		rooms_list.push(newRoom);
 //
 //		socket.join(data.room);
