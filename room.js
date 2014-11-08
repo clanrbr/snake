@@ -5,7 +5,6 @@ function Room(data) {
 	this.total_players = data.total_players;
 	this.gridx = data.gridx;
 	this.gridy = data.gridy;
-	this.number_of_players = data.number_of_players;
 	this.players_list = [];
 	this.snakes_list = [];
 
@@ -14,8 +13,6 @@ function Room(data) {
 		return this.name;
 	};
 	this.setOneMorePlayer = function (player) {
-		this.number_of_players++;
-
 		this.players_list.push(player);
 		this.snakes_list.push(new Snake());
 		// .. generate snake
@@ -27,22 +24,23 @@ function Room(data) {
 
 		this.players_list.splice(player_index, 1);
 		this.snakes_list.splice(player_index, 1);
-
-		this.number_of_players--;
 	};
 	this.isFull = function () {
-		if (this.total_players === this.number_of_players)
+		if (this.total_players === this.getNumberOfPlayers())
 			return true;
 
 		return false;
 	};
+	this.getNumberOfPlayers= function() {
+		return this.players_list.length;
+	}
 	this.already_joined = function (player) {
 		return this.players_list.indexOf(player) > -1;
 	};
 	this.get_statistics = function () {
 		return {
 			name: this.name,
-			current_players: this.number_of_players,
+			current_players: getNumberOfPlayers(),
 			max_players: this.total_players
 		};
 	};
