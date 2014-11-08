@@ -24,7 +24,7 @@
 			};
 
 		window.onload = function(){
-			document.body.innerHTML = snake;
+			document.getElementById('snakediv').innerHTML = snake
 		};
 
 		socket.on('sizes', function (data) {
@@ -40,5 +40,6 @@
 </head>
 <body>
 	<input type="button" value="Join a room" onclick="joinRoom();"/>
+	<div id="snakediv"></div>
 </body>
 </html>
