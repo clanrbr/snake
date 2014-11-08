@@ -13,5 +13,20 @@ app.get('/', function (req, res) {
 
 // Start app code
 io.on('connection', function (socket) {
-	socket.emit('news', { hello: 'world' });
+
+	// generate random side
+	var sizes= ['left','right','top','down'];
+	
+	// shout for that side
+	setInterval(function(){
+    	socket.emit('sizes', { hello: sizes[Math.floor(Math.random()*4)] });
+	}, 5000)
 });
+
+// socket.on('subscribe', function(data) { 
+// 	socket.join(data.room);
+// });
+
+// socket.on('unsubscribe', function(data) {
+// 	socket.leave(data.room); 
+// });

@@ -7,8 +7,12 @@
 	<script src="/socket.io/socket.io.js"></script>
 	<script>
 		var socket = io.connect('http://localhost:3000');
-		socket.on('news', function (data) {
+		socket.on('sizes', function (data) {
 			console.log(data);
+		});
+
+		socket.on('subscribe', function () {
+			console.log('done');
 		});
 	</script>
 </body>
