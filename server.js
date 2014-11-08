@@ -3,7 +3,8 @@ var app = require('express')(),
 	io = require('socket.io')(server),
 	port = 3000,
 	Room = require('./room.js'),
-	rooms_list = new Array();
+	rooms_list = new Array(),
+	fps = 3;
 
 server.listen(port);
 console.log('Listening on port ' + port);
@@ -95,3 +96,11 @@ io.on('connection', function (socket) {
 	}
 
 });
+
+setInterval(function(){
+	rooms_list.forEach(function(r){
+		r.snakes_list.forEach(function(s){
+			console.log(s);
+		});
+	});
+}, 1000 / fps);
