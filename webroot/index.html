@@ -3,6 +3,7 @@
 <head>
 	<title>pikachu</title>
 	<script src="/socket.io/socket.io.js" type="text/javascript"></script>
+	<script src="js.js" type="text/javascript"></script>
 	<script type="text/javascript">
 		var io_address = 'http://localhost:3000',
 			socket = io.connect(io_address),
@@ -38,6 +39,6 @@
 	</script>
 </head>
 <body>
-	
+	<input type="button" value="Join a room" onclick="joinRoom();"></input>
 </body>
 </html>

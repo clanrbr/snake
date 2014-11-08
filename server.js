@@ -35,9 +35,10 @@ io.on('connection', function (socket) {
 		socket.emit('You are in room ' + data.room);
 	});
 
+	socket.on('unsubscribe', function (data) {
+		socket.leave(data.room);
+		socket.emit('You just left room ' + data.room);
+	});
+
 
 });
-
-// socket.on('unsubscribe', function(data) {
-// 	socket.leave(data.room); 
-// });
