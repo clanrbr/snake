@@ -1,9 +1,8 @@
 var io_address = 'http://localhost:3000',
 	socket = io.connect(io_address),
-	Snakes = {};
-	statistics= [];
-	current_room='';
-
+	Snakes = {},
+	statistics = [],
+	current_room = '';
 
 window.onload = function () {
 	socket.emit('rooms_statistics');
@@ -57,7 +56,7 @@ window.onload = function () {
 		document.getElementById('max_players3').innerHTML = rooms[2].max_players;
 
 
-		statistics=rooms;
+		statistics = rooms;
 		console.log('rooms_statistics', rooms);
 	});
 
@@ -117,12 +116,12 @@ function joinRoom(roomname) {
 		})[0];
 
 		if (room) {
-			current_room=roomname;
+			current_room = roomname;
 			switchScreen(1);
-			snakediv=document.getElementById('snakediv');
-			snakediv.style.display="block";
-			snakediv.style.width=room.gridx*20+'px';
-			snakediv.style.height=room.gridy*20+'px';
+			snakediv = document.getElementById('snakediv');
+			snakediv.style.display = "block";
+			snakediv.style.width = room.gridx * 20 + 'px';
+			snakediv.style.height = room.gridy * 20 + 'px';
 		}
 	}
 }

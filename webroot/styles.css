@@ -211,3 +211,14 @@ body {
 	border: 1px solid red;
 	overflow:hidden;
 }
+
+#snakediv{
+	position: relative;
+}
+
+.sss{
+	width: 20px;
+	height: 20px;
+	background-color: red;
+	position: absolute; 
+}

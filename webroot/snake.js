@@ -8,7 +8,8 @@ function Snake() {
 		this.box = document.getElementById('snakediv');
 	};
 	this.generate_pixel = function (x, y, tail) {
-		this.box.innerHTML = this.box.innerHTML + '<div class="' + this.id + '" style="width: 20px; height: 20px; background-color: red; position: absolute; margin-top: ' + y * this.box_side + 'px; margin-left: ' + x * this.box_side + 'px;">&nbsp;</div>';
+		console.log(x, y);
+		this.box.innerHTML = this.box.innerHTML + '<div class="sss ' + this.id + '" style="top: ' + y * this.box_side + 'px; left: ' + x * this.box_side + 'px;">&nbsp;</div>';
 
 		if (tail) {
 			this.snake.push({x: x, y: y});

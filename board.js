@@ -1,4 +1,4 @@
-function Board() {
+var Board = function () {
 	this.x = null;
 	this.y = null;
 
