@@ -72,6 +72,10 @@ window.onload = function () {
 		}
 	});
 
+	socket.on('death', function (socket_id) {
+		console.log('death', socket_id);
+	});
+
 	window.addEventListener("keydown", function (e) {
 		var prevent_default = e.keyCode >= 37 && e.keyCode <= 40;
 

@@ -147,12 +147,32 @@ io.on('connection', function (socket) {
 	});
 });
 
+var move = function (room_name, snake, direction) {
+	var next_position = snake.get_next_position(direction),
+		room = rooms_list.filter(function (room) {
+			return room.getRoomName() === room_name;
+		})[0],
+		next_position_free = room.check_free(next_position.x, next_position.y);
+
+	if (next_position_free) {
+		snake.move(direction);
+	} else {
+		var snakes_list = room.snakes_list;
+
+		for (var socket_id in snakes_list) {
+			sockets[socket_id].emit('death', socket_id);
+		}
+
+		room.removeOnePlayer(snake.id);
+	}
+};
+
 var emit_positions = function (room) {
 	var room_name = room.getRoomName(),
 		used_sockets = {};
 
 	rooms_actions[room_name].forEach(function (a) {
-		room.snakes_list[a.socket_id].move(a.direction);
+		move(room_name, room.snakes_list[a.socket_id], a.direction);
 		used_sockets[a.socket_id] = true;
 	});
 
@@ -161,7 +181,7 @@ var emit_positions = function (room) {
 			continue;
 		}
 
-		room.snakes_list[socket_id].move(room.snakes_list[socket_id].current_direction);
+		move(room_name, room.snakes_list[socket_id], room.snakes_list[socket_id].current_direction);
 	}
 
 	room.players_list.forEach(function (socket_id) {

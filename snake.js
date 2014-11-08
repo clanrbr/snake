@@ -2,6 +2,7 @@ var Snake = function () {
 	this.snake = [];
 	this.current_direction = null;
 	this.next_direction = null;
+	this.id = null;
 
 	this.grow = function (x, y) {
 		this.snake.unshift({x: x, y: y});
@@ -20,12 +21,26 @@ var Snake = function () {
 		this.set_current_direction();
 	};
 
-	this.move = function (direction) {
+	this.get_next_position = function (direction) {
 		if (direction === this.get_opposite_direction()) {
 			direction = this.current_direction;
 		}
 
-		var is_free = this.check_free();
+		var current_head = this.snake[0],
+			x = direction === 'right' && 1 || direction === 'left' && -1 || 0,
+			y = direction === 'up' && -1 || direction === 'down' && 1 || 0,
+			new_head = {
+				x: current_head.x + x,
+				y: current_head.y + y
+			};
+
+		return new_head;
+	};
+
+	this.move = function (direction) {
+		if (direction === this.get_opposite_direction()) {
+			direction = this.current_direction;
+		}
 
 		switch (direction) {
 			case 'up':
