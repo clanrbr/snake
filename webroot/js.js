@@ -9,5 +9,6 @@
 
 
 function joinRoom() {
-	socket.emit('message', { my: 'data' });
+	socket.emit('subscribe', { room: 'myroom' });
+	console.log('clicked');
 }	

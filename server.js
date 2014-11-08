@@ -29,8 +29,9 @@ io.on('connection', function (socket) {
 	}, 1000);
 
 	// join a room
-	socket.emit('subscribe', 1);
+	// socket.emit('subscribe', 1);
 	socket.on('subscribe', function (data) {
+		console.log('da');
 		socket.join(data.room);
 		socket.emit('You are in room ' + data.room);
 	});

@@ -3,9 +3,10 @@ function Rooms (data) {
     this.players = data.players;
     this.gridx = data.y;
     this.gridy = data.y;
-}
- 
-// get the name of the room
-function getAppleInfo() {
-    return this.players;
+    
+    // get the name of the room
+    this.getRoomName = function() {
+        return this.name;
+    };
+
 }
