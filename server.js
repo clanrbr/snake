@@ -48,8 +48,10 @@ io.on('connection', function (socket) {
 		if (room) {
 			if (room.already_joined(socket.id)) {
 				socket.emit('message', 'You already play in ' + room_name);
+				socket.emit('join_status', 2);
 			} else if (room.isFull()) {
 				socket.emit('message', room_name + ' is full');
+				socket.emit('join_status', 3);
 			} else {
 				socket.join(room_name);
 				room.setOneMorePlayer(socket.id);
@@ -68,11 +70,13 @@ io.on('connection', function (socket) {
 				socket.emit('coordinates', list);
 				socket.to(room_name).emit('coordinates', list);
 				socket.emit('message', 'You are in room ' + room_name);
+				socket.emit('join_status', 1);
 				socket.room = room_name;
 				emit_rooms_statistics(room_name);
 			}
 		} else {
 			socket.emit('message', 'Room with that name does not exist: ' + room_name);
+			socket.emit('join_status', 0);
 		}
 	});
 
@@ -89,12 +93,15 @@ io.on('connection', function (socket) {
 				room.removeOnePlayer(socket.id);
 				delete socket.room;
 				socket.emit('message', 'You just left room ' + room_name);
+				socket.emit('leave_status', 1);
 				emit_rooms_statistics(room_name);
 			} else {
 				socket.emit('message', 'You are not in room ' + room_name);
+				socket.emit('leave_status', 2);
 			}
 		} else {
 			socket.emit('message', 'Room with that name does not exists: ' + room_name);
+			socket.emit('leave_status', 0);
 		}
 	});
 

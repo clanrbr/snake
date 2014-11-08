@@ -26,19 +26,16 @@
 		<div class="cta_text">
 			<div id="begin_screen">
 		      <p>
-		        <span>Online Multiplayer Snake</span>
+		        <span>Играй Snakes с приятели</span>
+		      </p>
+		      <p>
+		        <span style="font-size:20px;">Избери една от следните стаи:</span>
 		      </p>
 			  <div id="buttons">
 				<div><a id="room1" type="button" class="btn" onclick="joinRoom(1);">Noobs</a></div>
 				<div><a id="room2" type="bytton" class="btn" onclick="joinRoom(2);">Mellee</a></div>
 				<div><a id="room3" type="button" class="btn" onclick="joinRoom(3);">Deathmatch</a></div>
 			  </div>
-		  	</div>
-		  	<div id="input_screen">
-		      <form method="post" name="choose_name" action="cool_action">
-		      	<input type="text" name="username" value=""/>
-		      	<input type="button" value="Започни игра" name="username"/>
-		      </form>
 		  	</div>
 		  	<div id="board_screen">
 		      <form>
@@ -49,6 +46,14 @@
 	    </div>
 
 	    <div id="main">
+	    	<div id="input_screen" class="position_middle">
+    		  <h2 class="luck small">Въведи си името</h2>
+		      <form method="post" name="choose_name" action="cool_action">
+		      	<input type="text" name="username" value=""/>
+		      	<input type="button" value="Започни игра" name="username"/>
+		      </form>
+		  	</div>
+
 	    	<div class="position_middle">
 	    		<h2 class="luck big">Описание на стаите</h2>
 	    	</div>

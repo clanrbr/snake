@@ -25,6 +25,17 @@ window.onload = function () {
 		console.log(data);
 	});
 
+	socket.on('join_status', function (data) {
+		console.log(data);
+		if (data===1)
+			switchScreen(1);
+	});
+
+	socket.on('leave_status', function (data) {
+		console.log(data);
+	});
+
+
 	socket.on('rooms_statistics', function (rooms) {
 		// rooms.filter
 		room1 = document.getElementById('room1').innerHTML = rooms[0].name;
@@ -92,11 +103,9 @@ function joinRoom(roomnumb) {
 }
 
 function switchScreen(show_screen) {
-	begin_screen = document.getElementById('begin_screen');
 	input_screen = document.getElementById('input_screen');
 	board_screen = document.getElementById('board_screen');
 
-	begin_screen.style.display = "none";
 	input_screen.style.display = "none";
 	board_screen.style.display = "none";
 
@@ -104,8 +113,6 @@ function switchScreen(show_screen) {
 		input_screen.style.display = "block";
 	} else if (show_screen === 2) {
 		board_screen.style.display = "block";
-	} else {
-		begin_screen.style.display = "block";
 	}
 }
 
