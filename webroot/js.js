@@ -6,8 +6,18 @@ window.onload = function () {
 	socket.emit('rooms_statistics');
 
 	socket.on('data', function (data) {
+		var timestamp = +new Date();
+
 		for (var i in data) {
-			Snakes[i].move(data);
+			Snakes[data[i].socket_id].move(data[i].direction);
+			Snakes[data[i].socket_id].timestamp = timestamp;
+		}
+
+		for (var i in Snakes) {
+			if (Snakes[i].timestamp !== timestamp) {
+				Snakes[i].move(Snakes[i].current_direction);
+				Snakes[i].timestamp = timestamp;
+			}
 		}
 	});
 
@@ -20,19 +30,30 @@ window.onload = function () {
 	});
 
 	socket.on('coordinates', function (data) {
-		console.log('coordinates', data);
 		for (var i in data) {
-			Snakes[i] = new Snake();
-			Snakes[i].init();
-			Snakes[i].generate_snake(data[i].snake[data[i].snake.length - 1], data[i].snake[0]);
+			if (Snakes[data[i].socket_id]) {
+				continue;
+			}
+
+			Snakes[data[i].socket_id] = new Snake();
+			Snakes[data[i].socket_id].init();
+			Snakes[data[i].socket_id].generate_snake(data[i].snake[data[i].snake.length - 1], data[i].snake[0]);
 		}
 	});
 
 	window.addEventListener("keydown", function (e) {
 		switch (e.keyCode) {
+			case 37:
+				socket.emit('move', 'left');
+				break;
+			case 38:
+				socket.emit('move', 'up');
+				break;
 			case 39:
 				socket.emit('move', 'right');
-				console.log('moved to the right');
+				break;
+			case 40:
+				socket.emit('move', 'down');
 				break;
 		}
 	});
@@ -51,20 +72,20 @@ function joinRoom(roomnumb) {
 }
 
 function switchScreen(show_screen) {
-	begin_screen=document.getElementById('begin_screen');
-	input_screen=document.getElementById('input_screen');
-	board_screen=document.getElementById('board_screen');
+	begin_screen = document.getElementById('begin_screen');
+	input_screen = document.getElementById('input_screen');
+	board_screen = document.getElementById('board_screen');
 
-	begin_screen.style.display="none";
-	input_screen.style.display="none";
-	board_screen.style.display="none";
+	begin_screen.style.display = "none";
+	input_screen.style.display = "none";
+	board_screen.style.display = "none";
 
-	if (show_screen===1) {
-		input_screen.style.display="block";
-	} else if (show_screen===2) {
-		board_screen.style.display="block";
+	if (show_screen === 1) {
+		input_screen.style.display = "block";
+	} else if (show_screen === 2) {
+		board_screen.style.display = "block";
 	} else {
-		begin_screen.style.display="block";
+		begin_screen.style.display = "block";
 	}
 }
 

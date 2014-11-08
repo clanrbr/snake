@@ -9,7 +9,7 @@ function Room(data) {
 	this.gridx = data.gridx;
 	this.gridy = data.gridy;
 	this.players_list = [];
-	this.snakes_list = [];
+	this.snakes_list = {};
 
 	// get the name of the room
 	this.getRoomName = function () {
@@ -19,22 +19,19 @@ function Room(data) {
 		return this.players_list.length;
 	};
 	this.setOneMorePlayer = function (player) {
-		var current_players_number = this.players_list.length,
-			coordinates = Board.get_free_place(5, 5);
+		var coordinates = Board.get_free_place(5, 5);
 
 		this.players_list.push(player);
-		this.snakes_list.push(new Snake());
+		this.snakes_list[player] = new Snake();
 
 		// the last snake (just created)
-		this.snakes_list[current_players_number].generate_snake(coordinates.from, coordinates.to);
+		this.snakes_list[player].generate_snake(coordinates.from, coordinates.to);
 
 		return coordinates;
 	};
 	this.removeOnePlayer = function (player) {
-		var player_index = this.players_list.indexOf(player);
-
-		this.players_list.splice(player_index, 1);
-		this.snakes_list.splice(player_index, 1);
+		this.players_list.splice(this.players_list.indexOf(player), 1);
+		delete this.snakes_list[player];
 	};
 	this.isFull = function () {
 		return this.getNumberOfPlayers() >= this.total_players;
