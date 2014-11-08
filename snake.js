@@ -1,5 +1,6 @@
 var Snake = function () {
 	this.snake = [];
+	this.box_side = 20;
 	this.current_direction = null;
 	this.next_direction = null;
 
