@@ -8,7 +8,7 @@ console.log('Listening on port ' + port);
 
 // GET /index.html
 app.get('/', function (req, res) {
-	res.sendFile(__dirname + '/index.html');
+	res.sendFile(__dirname + '/webroot/index.html');
 });
 
 // Start app code
