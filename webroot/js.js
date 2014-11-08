@@ -27,8 +27,9 @@ window.onload = function () {
 
 	socket.on('join_status', function (data) {
 		console.log(data);
-		if (data===1)
+		if (data===1) {
 			switchScreen(1);
+		}
 	});
 
 	socket.on('leave_status', function (data) {

@@ -12,13 +12,13 @@
 	<div id="container">
 		<div id="upline">
 			<div id="menu">
-				<div id="logo">ЯКОТО ЛОГО</div>
+				<div id="logo">Our Cool Logo</div>
 				<div>
 			        <ul id="actualMenu">
-			          <li class="active"><a href="/index.html">Вкъщи</a></li>
-			          <li><a href="#">Зали</a></li>
-			          <li><a href="#">Статистика</a></li>
-			          <li><a href="#">Вход</a></li>
+			          <li class="active"><a href="/index.html">Home</a></li>
+			          <li><a href="#">Room</a></li>
+			          <li><a href="#">Statistics</a></li>
+			          <li><a href="#">Login</a></li>
 			        </ul>
 	  			</div>
 			</div>
@@ -26,22 +26,16 @@
 		<div class="cta_text">
 			<div id="begin_screen">
 		      <p>
-		        <span>Играй Snakes с приятели</span>
+		        <span>Play Snakes with friends</span>
 		      </p>
 		      <p>
-		        <span style="font-size:20px;">Избери една от следните стаи:</span>
+		        <span style="font-size:20px;">Choose one of the rooms:</span>
 		      </p>
 			  <div id="buttons">
 				<div><a id="room1" type="button" class="btn" onclick="joinRoom(1);">Noobs</a></div>
 				<div><a id="room2" type="bytton" class="btn" onclick="joinRoom(2);">Mellee</a></div>
 				<div><a id="room3" type="button" class="btn" onclick="joinRoom(3);">Deathmatch</a></div>
 			  </div>
-		  	</div>
-		  	<div id="board_screen">
-		      <!-- <form>
-		      	<input type="text" name="username" value=""/>
-		      	<div><a id="room3" type="button" class="btn" onclick="joinRoom(3);">Започни игра</a></div>
-		      </form> -->
 		  	</div>
 	    </div>
 
@@ -53,6 +47,10 @@
 		      	<input class="input_field" type="text" name="username" value=""/>
 		      	<div><a id="room3" type="button" class="btn" onclick="startGame();">Start a game</a></div>
 		      </form>
+		  	</div>
+
+		  	<div id="board_screen" style="display:block" class="position_middle">
+    		  <div id="theboard"></div>
 		  	</div>
 
 	    	<div class="position_middle">
