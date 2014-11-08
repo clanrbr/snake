@@ -204,6 +204,7 @@ body {
 
 
 .board_screen {
+	display:none;
 	margin: 30px auto;
 	width:1000px;
 	height:800px;
