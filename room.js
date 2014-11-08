@@ -33,8 +33,11 @@ function Room(data) {
 		this.players_list.splice(player_index, 1);
 		this.snakes_list.splice(player_index, 1);
 	};
+	this.getNumberOfPlayers = function() {
+		return this.players_list.length;
+	}
 	this.isFull = function () {
-		return this.players_list.length >= this.total_players;
+		return this.total_players <= this.getNumberOfPlayers.length;
 	};
 	this.already_joined = function (player) {
 		return this.players_list.indexOf(player) > -1;
@@ -42,7 +45,7 @@ function Room(data) {
 	this.get_statistics = function () {
 		return {
 			name: this.name,
-			current_players: this.players_list.length,
+			current_players: this.getNumberOfPlayers(),
 			max_players: this.total_players
 		};
 	};
