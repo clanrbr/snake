@@ -125,14 +125,27 @@ body {
 }
 
 #main .luck {
-	font-size: 36px;
 	color: #c5db3b;
 	font-family: 'Luckiest Guy', cursive;
 	font-weight: 400;
 	text-transform: uppercase;
 }
+
+#main .luck.big {
+	font-size: 36px;
+}
+
+#main .luck.small {
+	font-size: 26px;
+}
+
 #main p{
 	font-size: 13px;
 	color: #fff;
 	text-shadow: 0 1px 0 rgba(0,0,0,0.55)
+}
+
+.position_middle {
+	margin: 30px auto;
+	width: 960px;
 }

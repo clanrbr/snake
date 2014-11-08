@@ -18,6 +18,7 @@ window.onload = function () {
 	socket.on('rooms_statistics', function (rooms) {
 		// rooms.filter
 		room1=document.getElementById('room1').innerHTML=rooms[0].name;
+		roominfo=document.getElementById
 		room2=document.getElementById('room2').innerHTML=rooms[1].name;
 		room3=document.getElementById('room3').innerHTML=rooms[2].name;
 

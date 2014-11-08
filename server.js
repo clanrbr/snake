@@ -14,11 +14,11 @@ server.listen(port);
 console.log('Listening on port ' + port);
 
 // For testing purposes
-var newRoom1 = new Room.Room({name: 'Noobs', total_players: 5, gridx: 50, gridy: 50});
+var newRoom1 = new Room.Room({name: 'Noobs', total_players: 5, gridx: 50, gridy: 50, description:'This is the default version.'});
 rooms_list.push(newRoom1);
-var newRoom2 = new Room.Room({name: 'Mellee', total_players: 5, gridx: 60, gridy: 30});
+var newRoom2 = new Room.Room({name: 'Mellee', total_players: 5, gridx: 60, gridy: 30, description:'Every brick gives you superpowers'});
 rooms_list.push(newRoom2);
-var newRoom3 = new Room.Room({name: 'Deathmatch', total_players: 5, gridx: 60, gridy: 40});
+var newRoom3 = new Room.Room({name: 'Deathmatch', total_players: 5, gridx: 60, gridy: 40, description:'Eat everybody\'s tail.'});
 rooms_list.push(newRoom3);
 
 // GET static content

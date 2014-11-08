@@ -10,6 +10,7 @@ function Room(data) {
 	this.gridy = data.gridy;
 	this.players_list = [];
 	this.snakes_list = [];
+	this.description = data.description;
 
 	// get the name of the room
 	this.getRoomName = function () {
@@ -46,7 +47,8 @@ function Room(data) {
 		return {
 			name: this.name,
 			current_players: this.getNumberOfPlayers(),
-			max_players: this.total_players
+			max_players: this.total_players,
+			description: this.description,
 		};
 	};
 	this.check_free = function(x, y){
