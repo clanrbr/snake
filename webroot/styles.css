@@ -211,3 +211,7 @@ body {
 	border: 1px solid red;
 	overflow:hidden;
 }
+
+#startgame {
+	margin-left:100px;
+}
