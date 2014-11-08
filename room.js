@@ -17,7 +17,7 @@ function Room(data) {
 	};
 	this.getNumberOfPlayers = function () {
 		return this.players_list.length;
-	}
+	};
 	this.setOneMorePlayer = function (player) {
 		var current_players_number = this.players_list.length,
 			coordinates = Board.get_free_place(5, 5);
