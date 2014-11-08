@@ -28,7 +28,7 @@ io.on('connection', function (socket) {
 	// shout for that side
 	setInterval(function () {
 		socket.emit('sizes', {size: sizes[Math.floor(Math.random() * 4)]});
-	}, 10000);
+	}, 1000);
 	
 	// socket.emit('subscribe', 1);
 
