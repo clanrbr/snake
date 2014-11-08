@@ -19,7 +19,7 @@ io.on('connection', function (socket) {
 	
 	// shout for that side
 	setInterval(function(){
-    	socket.emit('sizes', { hello: sizes[Math.floor(Math.random()*4)] });
+    	socket.emit('sizes', { size: sizes[Math.floor(Math.random()*4)] });
 	}, 5000)
 });
 
