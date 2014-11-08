@@ -32,13 +32,17 @@
 			actions[data.size]();
 		});
 
-		socket.on('subscribe', function (data) {
-			socket.emit("subscribe", { room: "global" });
+		socket.on('createRoom', function (data) {
+			console.log(data);
+		});
+
+		socket.on('joinRoom', function (data) {
 			console.log(data);
 		});
 	</script>
 </head>
 <body>
+	<input type="button" value="Create a room" onclick="createRoom();"/>
 	<input type="button" value="Join a room" onclick="joinRoom();"/>
 	<div id="snakediv"></div>
 </body>
