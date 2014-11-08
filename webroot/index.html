@@ -36,7 +36,7 @@
 		      <div><a id="room3" type="button" class="btn" onclick="joinRoom(3);">Deathmatch</a></div>
 		  	</div>
 		  	<div id="input_screen">
-		      <form>
+		      <form method="post" name="choose_name" action="cool_action">
 		      	<input type="text" name="username" value=""/>
 		      	<input type="button" value="Започни игра" name="username"/>
 		      </form>
@@ -56,8 +56,6 @@
 		    </div>
 
 	    </div>
-		<!--<input type="button" value="Create a room" onclick="createRoom();"/>-->
-		<!-- <input type="button" value="Join a room" onclick="joinRoom();"/> -->
 		<input type="button" value="Leave a room" onclick="leaveRoom();"/>
 	</div>
 </body>
