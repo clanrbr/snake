@@ -16,16 +16,20 @@ io.on('connection', function (socket) {
 
 	// generate random side
 	var sizes= ['left','right','top','down'];
-	
 	// shout for that side
 	setInterval(function(){
     	socket.emit('sizes', { size: sizes[Math.floor(Math.random()*4)] });
-	}, 5000)
-});
+	}, 5000);
 
-// socket.on('subscribe', function(data) { 
-// 	socket.join(data.room);
-// });
+	// join a room
+	socket.emit('subscribe',1);
+	socket.on('subscribe', function(data) { 
+		socket.join(data.room);
+		socket.emit('You are in room '+data.room);
+	});
+
+
+});
 
 // socket.on('unsubscribe', function(data) {
 // 	socket.leave(data.room); 

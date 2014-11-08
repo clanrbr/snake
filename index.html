@@ -11,9 +11,11 @@
 			console.log(data);
 		});
 
-		socket.on('subscribe', function () {
-			console.log('done');
+		socket.on('subscribe', function (data) {
+			socket.emit("subscribe", { room: "global" });
+			console.log(data);
 		});
+
 	</script>
 </body>
 </html>
