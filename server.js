@@ -78,8 +78,21 @@ io.on('connection', function (socket) {
 
 
 	socket.on('leaveRoom', function (data) {
-		socket.leave(data.room);
-		socket.emit('leaveroom','You just left room ' + data.room);
+		// check for existing room
+		var i=0; var room_found=0;
+		while (i<rooms_list.length) {
+	    	if (rooms_list[i].getRoomName()===data.room) {
+	    		room_found=1; 
+	    		break;
+	    	}
+	    	i++;
+		}
+
+		if ( room_found===1 ) {
+			socket.leave(data.room);
+			rooms_list[i].removeOnePlayer();
+			socket.emit('leaveroom','You just left room ' + data.room);			
+		}
 	});
 
 });
