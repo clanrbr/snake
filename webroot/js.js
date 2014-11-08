@@ -1,13 +1,6 @@
-// document.addEventListener("DOMContentLoaded", function(event) { 
-  
-
-//   function joinRoom() {
-
-
-//   }
-// });
-
-
+function createRoom() {
+	socket.emit('createRoom', { room: Math.floor(Math.random()*100) });
+}	
 function joinRoom() {
-	socket.emit('message', { my: 'data' });
+	socket.emit('joinRoom', { room: Math.floor(Math.random()*100) });
 }	
