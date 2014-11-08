@@ -1,10 +1,13 @@
-function Rooms(data) {
+var Snake = require('./snake.js').Snake;
+
+function Room(data) {
 	this.name = data.name;
 	this.total_players = data.total_players;
 	this.gridx = data.gridx;
 	this.gridy = data.gridy;
 	this.number_of_players = data.number_of_players;
 	this.players_list = [];
+	this.snakes_list = [];
 
 	// get the name of the room
 	this.getRoomName = function () {
@@ -12,11 +15,20 @@ function Rooms(data) {
 	};
 	this.setOneMorePlayer = function (player) {
 		this.number_of_players++;
+
 		this.players_list.push(player);
+		this.snakes_list.push(new Snake());
+		// .. generate snake
+		// .. send snake
+		// and so on
 	};
 	this.removeOnePlayer = function (player) {
+		var player_index = this.players_list.indexOf(player);
+
+		this.players_list.splice(player_index, 1);
+		this.snakes_list.splice(player_index, 1);
+
 		this.number_of_players--;
-		this.players_list.splice(this.players_list.indexOf(player), 1);
 	};
 	this.isFull = function () {
 		if (this.total_players === this.number_of_players)
@@ -36,4 +48,4 @@ function Rooms(data) {
 	};
 }
 
-module.exports = {Rooms: Rooms};
+module.exports = {Room: Room};

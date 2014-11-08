@@ -2,18 +2,19 @@ var app = require('express')(),
 	server = require('http').Server(app),
 	io = require('socket.io')(server),
 	port = 3000,
-	Rooms = require('./rooms.js'),
-	rooms_list = new Array();
+	Room = require('./room.js'),
+	rooms_list = new Array(),
+	fps = 2;
 
 server.listen(port);
 console.log('Listening on port ' + port);
 
 // For testing purposes
-var newRoom1 = new Rooms.Rooms({name: 'Noobs', total_players: 5, gridx: 1000, gridy: 1000, number_of_players: 0});
+var newRoom1 = new Room.Room({name: 'Noobs', total_players: 5, gridx: 1000, gridy: 1000, number_of_players: 0});
 rooms_list.push(newRoom1);
-var newRoom2 = new Rooms.Rooms({name: 'Mellee', total_players: 5, gridx: 1200, gridy: 600, number_of_players: 0});
+var newRoom2 = new Room.Room({name: 'Mellee', total_players: 5, gridx: 1200, gridy: 600, number_of_players: 0});
 rooms_list.push(newRoom2);
-var newRoom3 = new Rooms.Rooms({name: 'Deathmatch', total_players: 5, gridx: 1200, gridy: 800, number_of_players: 0});
+var newRoom3 = new Room.Room({name: 'Deathmatch', total_players: 5, gridx: 1200, gridy: 800, number_of_players: 0});
 rooms_list.push(newRoom3);
 
 // GET static content
@@ -36,7 +37,7 @@ io.on('connection', function (socket) {
 	// shout for that side
 	setInterval(function () {
 		socket.emit('sizes', {size: sizes[Math.floor(Math.random() * 4)]});
-	}, 500);
+	}, 1000 / fps);
 
 	// socket.emit('subscribe', 1);
 
@@ -101,7 +102,7 @@ io.on('connection', function (socket) {
 				socket.join(data.room);
 				room.setOneMorePlayer(socket.id);
 				socket.emit('joinRoom', 'You are in room ' + data.room);
-				socket.emit('rooms_statistics', rooms_list);
+				emit_rooms_statistics();
 			}
 		} else {
 			socket.emit('joinRoom', 'Room with that name does not exists: ' + room_name);

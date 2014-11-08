@@ -5,6 +5,9 @@ var Snake = {
 	current_direction: null,
 	init: function () {
 		this.box = document.getElementById('snakediv');
+	    window.addEventListener("keydown", function(e){
+			console.log(e.keyCode);
+		});
 	},
 	generate_pixel: function (x, y, tail) {
 		this.box.innerHTML = this.box.innerHTML + '<div class="snake_element" style="width: 20px; height: 20px; background-color: red; position: absolute; margin-top: ' + y + 'px; margin-left: ' + x + 'px;">&nbsp;</div>';
