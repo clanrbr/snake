@@ -1,4 +1,5 @@
 function Snake() {
+	this.id = null;
 	this.box = null;
 	this.box_side = 20;
 	this.snake = [];
@@ -7,7 +8,7 @@ function Snake() {
 		this.box = document.getElementById('snakediv');
 	};
 	this.generate_pixel = function (x, y, tail) {
-		this.box.innerHTML = this.box.innerHTML + '<div class="snake_element" style="width: 20px; height: 20px; background-color: red; position: absolute; margin-top: ' + y * this.box_side + 'px; margin-left: ' + x * this.box_side + 'px;">&nbsp;</div>';
+		this.box.innerHTML = this.box.innerHTML + '<div class="' + this.id + '" style="width: 20px; height: 20px; background-color: red; position: absolute; margin-top: ' + y * this.box_side + 'px; margin-left: ' + x * this.box_side + 'px;">&nbsp;</div>';
 
 		if (tail) {
 			this.snake.push({x: x, y: y});
@@ -17,14 +18,13 @@ function Snake() {
 	};
 	this.remove_pixel = function () {
 //		if (Math.random() < 0.9) {
-			this.box.removeChild(this.box.getElementsByClassName('snake_element')[0]);
+			this.box.removeChild(this.box.getElementsByClassName(this.id)[0]);
 			this.snake.pop();
 //		} else {
 //			console.log('Snake just got larger!');
 //		}
 	};
 	this.generate_snake = function (from, to) {
-		console.log(from, to);
 		for (var x = from.x; x <= to.x; x++) {
 			for (var y = from.y; y <= to.y; y++) {
 				this.generate_pixel(x, y, false);

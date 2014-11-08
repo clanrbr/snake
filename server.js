@@ -14,11 +14,11 @@ server.listen(port);
 console.log('Listening on port ' + port);
 
 // For testing purposes
-var newRoom1 = new Room.Room({name: 'Noobs', total_players: 5, gridx: 50, gridy: 50, description:'This is the default version.'});
+var newRoom1 = new Room.Room({name: 'Noobs', total_players: 5, gridx: 50, gridy: 50, description: 'This is the default version.'});
 rooms_list.push(newRoom1);
-var newRoom2 = new Room.Room({name: 'Mellee', total_players: 5, gridx: 60, gridy: 30, description:'Every brick gives you superpowers'});
+var newRoom2 = new Room.Room({name: 'Mellee', total_players: 5, gridx: 60, gridy: 30, description: 'Every brick gives you superpowers'});
 rooms_list.push(newRoom2);
-var newRoom3 = new Room.Room({name: 'Deathmatch', total_players: 5, gridx: 60, gridy: 40, description:'Eat everybody\'s tail.'});
+var newRoom3 = new Room.Room({name: 'Deathmatch', total_players: 5, gridx: 60, gridy: 40, description: 'Eat everybody\'s tail.'});
 rooms_list.push(newRoom3);
 
 // GET static content
@@ -134,7 +134,18 @@ io.on('connection', function (socket) {
 		}
 	}
 
-	socket.on('disconnect', function (socket) {
+	socket.on('disconnect', function () {
+		var room_name = socket.room,
+			room;
+
+		if (room_name) {
+			room = rooms_list.filter(function (room) {
+				return room.getRoomName() === room_name;
+			})[0];
+
+			room.removeOnePlayer(socket.id);
+		}
+
 		delete sockets[socket.id];
 	});
 });
@@ -157,7 +168,6 @@ var emit_positions = function (room) {
 	}
 
 	room.players_list.forEach(function (socket_id) {
-		console.log(rooms_actions, room_name, socket_id);
 		sockets[socket_id].emit('data', rooms_actions[room_name]);
 	});
 
