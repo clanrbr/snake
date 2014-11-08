@@ -27,8 +27,6 @@ function Room(data) {
 
 		// the last snake (just created)
 		this.snakes_list[player].generate_snake(coordinates.from, coordinates.to);
-
-		return coordinates;
 	};
 	this.removeOnePlayer = function (player) {
 		this.players_list.splice(this.players_list.indexOf(player), 1);

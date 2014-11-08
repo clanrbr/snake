@@ -27,23 +27,23 @@ window.onload = function () {
 
 	socket.on('rooms_statistics', function (rooms) {
 		// rooms.filter
-		room1=document.getElementById('room1').innerHTML=rooms[0].name;
-		document.getElementById('roomname1').innerHTML=rooms[0].name;
-		document.getElementById('roomdescription1').innerHTML=rooms[0].description;
-		document.getElementById('current_players1').innerHTML=rooms[0].current_players;
-		document.getElementById('max_players1').innerHTML=rooms[0].max_players;
+		room1 = document.getElementById('room1').innerHTML = rooms[0].name;
+		document.getElementById('roomname1').innerHTML = rooms[0].name;
+		document.getElementById('roomdescription1').innerHTML = rooms[0].description;
+		document.getElementById('current_players1').innerHTML = rooms[0].current_players;
+		document.getElementById('max_players1').innerHTML = rooms[0].max_players;
 
-		room2=document.getElementById('room2').innerHTML=rooms[1].name;
-		document.getElementById('roomname2').innerHTML=rooms[1].name;
-		document.getElementById('roomdescription2').innerHTML=rooms[1].description;
-		document.getElementById('current_players2').innerHTML=rooms[1].current_players;
-		document.getElementById('max_players2').innerHTML=rooms[1].max_players;
+		room2 = document.getElementById('room2').innerHTML = rooms[1].name;
+		document.getElementById('roomname2').innerHTML = rooms[1].name;
+		document.getElementById('roomdescription2').innerHTML = rooms[1].description;
+		document.getElementById('current_players2').innerHTML = rooms[1].current_players;
+		document.getElementById('max_players2').innerHTML = rooms[1].max_players;
 
-		room3=document.getElementById('room3').innerHTML=rooms[2].name;
-		document.getElementById('roomname3').innerHTML=rooms[2].name;
-		document.getElementById('roomdescription3').innerHTML=rooms[2].description;
-		document.getElementById('current_players3').innerHTML=rooms[2].current_players;
-		document.getElementById('max_players3').innerHTML=rooms[2].max_players;
+		room3 = document.getElementById('room3').innerHTML = rooms[2].name;
+		document.getElementById('roomname3').innerHTML = rooms[2].name;
+		document.getElementById('roomdescription3').innerHTML = rooms[2].description;
+		document.getElementById('current_players3').innerHTML = rooms[2].current_players;
+		document.getElementById('max_players3').innerHTML = rooms[2].max_players;
 
 		console.log('rooms_statistics', rooms);
 	});
@@ -56,6 +56,7 @@ window.onload = function () {
 
 			Snakes[data[i].socket_id] = new Snake();
 			Snakes[data[i].socket_id].init();
+			Snakes[data[i].socket_id].id = data[i].socket_id;
 			Snakes[data[i].socket_id].generate_snake(data[i].snake[data[i].snake.length - 1], data[i].snake[0]);
 		}
 	});
