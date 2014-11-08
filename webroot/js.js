@@ -38,7 +38,6 @@ window.onload = function () {
 
 
 	socket.on('rooms_statistics', function (rooms) {
-		// rooms.filter
 		room1 = document.getElementById('room1').innerHTML = rooms[0].name;
 		document.getElementById('roomname1').innerHTML = rooms[0].name;
 		document.getElementById('roomdescription1').innerHTML = rooms[0].description;
@@ -92,7 +91,6 @@ window.onload = function () {
 };
 
 function joinRoom(roomnumb) {
-//	socket.emit('joinRoom', { room: Math.floor(Math.random()*100) });
 	if (roomnumb === 1) {
 		socket.emit('joinRoom', {room: 'Noobs'});
 	} else if (roomnumb === 2) {
@@ -105,15 +103,15 @@ function joinRoom(roomnumb) {
 
 function switchScreen(show_screen) {
 	input_screen = document.getElementById('input_screen');
-	board_screen = document.getElementById('board_screen');
+	// board_screen = document.getElementById('board_screen');
 
 	input_screen.style.display = "none";
-	board_screen.style.display = "none";
+	// board_screen.style.display = "none";
 
 	if (show_screen === 1) {
 		input_screen.style.display = "block";
 	} else if (show_screen === 2) {
-		board_screen.style.display = "block";
+		// board_screen.style.display = "block";
 	}
 }
 
