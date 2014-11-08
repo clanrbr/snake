@@ -2,6 +2,7 @@ body {
 	margin:0;
 	font-family: 'Open Sans', sans-serif;
 	background: url('/images/slider_1.jpg') no-repeat;
+    background-position: center;
 	background-color:#92baf7;
 }
 
@@ -78,20 +79,6 @@ body {
 .cta_text div {
 	display:inline-block;
 }
-/*.cta_btn {
-	margin-top: 15px;
-	text-align: left;
-	line-height: 18px;
-	padding: 25px 0 0 25px;
-	display: block;
-	position: relative;
-	width: 264px;
-	height: 58px;
-	font-size: 35px;
-	color: #fff;
-	background: url('/images/sprite.png') no-repeat -2px -647px;
-	text-decoration: none;
-}*/
 
 #begin_screen {
 	padding-left:20px;
@@ -129,4 +116,40 @@ body {
   background: #378007;
   text-decoration: none;
   cursor:default;
+}
+
+#main {
+	padding:20px;
+	background: #302429 url('/images/bg_body.jpg') no-repeat center top;
+	position: relative;
+}
+
+#main .luck {
+	color: #c5db3b;
+	font-family: 'Luckiest Guy', cursive;
+	font-weight: 400;
+	text-transform: uppercase;
+}
+
+#main .luck.big {
+	font-size: 36px;
+}
+
+#main .luck.small {
+	font-size: 26px;
+}
+
+#main p{
+	font-size: 13px;
+	color: #fff;
+	text-shadow: 0 1px 0 rgba(0,0,0,0.55)
+}
+
+.position_middle {
+	margin: 30px auto;
+	width: 960px;
+}
+#buttons {
+	width:100%;
+	text-align:center;
 }
