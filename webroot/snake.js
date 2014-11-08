@@ -16,8 +16,12 @@ var Snake = {
 		}
 	},
 	remove_pixel: function () {
-		this.box.removeChild(this.box.getElementsByClassName('snake_element')[0]);
-		this.snake.pop();
+		if (Math.random() < 0.9) {
+			this.box.removeChild(this.box.getElementsByClassName('snake_element')[0]);
+			this.snake.pop();
+		} else {
+			console.log('Snake just got larger!');
+		}
 	},
 	generate_snake: function (from, to) {
 		for (var x = from.x; x < to.x; x += this.box_side) {
@@ -30,7 +34,7 @@ var Snake = {
 	},
 	move: function (direction) {
 		if (direction === this.get_opposite_direction()) {
-			return;
+			direction = this.current_direction;
 		}
 
 		console.log('before', this.current_direction);

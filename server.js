@@ -8,6 +8,14 @@ var app = require('express')(),
 server.listen(port);
 console.log('Listening on port ' + port);
 
+// For testing purposes
+var newRoom1 = new rooms.rooms({name: 'Noobs', total_players: 5, gridx: 1000, gridy: 1000, number_of_players: 0, roomid: 1});
+rooms_list.push(newRoom1);
+var newRoom2 = new rooms.rooms({name: 'Mellee', total_players: 5, gridx: 1200, gridy: 600, number_of_players: 0, roomid: 2});
+rooms_list.push(newRoom2);
+var newRoom3 = new rooms.rooms({name: 'Deathmatch', total_players: 5, gridx: 1200, gridy: 800, number_of_players: 0, roomid: 3});
+rooms_list.push(newRoom3);
+
 // GET static content
 app.get('/*', function (req, res) {
 	var requested_file = req.url;
@@ -28,30 +36,31 @@ io.on('connection', function (socket) {
 	// shout for that side
 	setInterval(function () {
 		socket.emit('sizes', {size: sizes[Math.floor(Math.random() * 4)]});
-	}, 1000);
+	}, 500);
 
 	// socket.emit('subscribe', 1);
 
-	// create a room
-	socket.on('createRoom', function (data) {
-		var newRoom = new rooms.rooms({name: data.room, total_players: 5, gridx: 5, gridy: 5, number_of_players: 1});
-		rooms_list.push(newRoom);
-
-		socket.join(data.room);
-
-		socket.emit('createRoom', 'You are in room ' + data.room);
-
-		var i = 0;
-		var room_names = "";
-		while (i < rooms_list.length) {
-			room_names += rooms_list[i].getRoomName() + ",";
-			i++;
-		}
-		socket.emit('createRoom', 'List of all rooms ' + room_names);
-	});
+//	// create a room
+//	socket.on('createRoom', function (data) {
+//		var newRoom = new rooms.rooms({name: data.room, total_players: 5, gridx: 5, gridy: 5, number_of_players: 1});
+//		rooms_list.push(newRoom);
+//
+//		socket.join(data.room);
+//
+//		socket.emit('createRoom', 'You are in room ' + data.room);
+//
+//		var i = 0;
+//		var room_names = "";
+//		while (i < rooms_list.length) {
+//			room_names += rooms_list[i].getRoomName() + ",";
+//			i++;
+//		}
+//		socket.emit('createRoom', 'List of all rooms ' + room_names);
+//	});
 
 	// join a room
 	socket.on('joinRoom', function (data) {
+		console.log('before', rooms_list);
 		// check for existing room
 		var i = 0;
 		var room_found = 0;
@@ -76,6 +85,8 @@ io.on('connection', function (socket) {
 		} else {
 			socket.emit('joinRoom', 'Room with that name does not exists: ' + data.room);
 		}
+
+		console.log('after', rooms_list);
 	});
 
 

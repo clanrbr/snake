@@ -2,9 +2,9 @@ function Rooms (data) {
 	this.roomid=0 | data.roomid;
     this.name = data.name;
     this.total_players = data.total_players;
-    this.gridx = data.y;
-    this.gridy = data.y;
-    this.number_of_players=data.number_of_players
+    this.gridx = data.gridx;
+    this.gridy = data.gridy;
+    this.number_of_players=data.number_of_players;
 
     // get the name of the room
     this.getRoomName = function() {
