@@ -16,14 +16,15 @@ function Snake() {
 		}
 	};
 	this.remove_pixel = function () {
-		if (Math.random() < 0.9) {
+//		if (Math.random() < 0.9) {
 			this.box.removeChild(this.box.getElementsByClassName('snake_element')[0]);
 			this.snake.pop();
-		} else {
-			console.log('Snake just got larger!');
-		}
+//		} else {
+//			console.log('Snake just got larger!');
+//		}
 	};
 	this.generate_snake = function (from, to) {
+		console.log(from, to);
 		for (var x = from.x; x <= to.x; x++) {
 			for (var y = from.y; y <= to.y; y++) {
 				this.generate_pixel(x, y, false);
@@ -36,8 +37,6 @@ function Snake() {
 		if (direction === this.get_opposite_direction()) {
 			direction = this.current_direction;
 		}
-
-		console.log('before', this.current_direction);
 
 		switch (direction) {
 			case 'up':
@@ -59,7 +58,6 @@ function Snake() {
 		}
 
 		this.set_current_direction();
-		console.log('after', this.current_direction);
 	};
 	this.move_head = function (x, y) {
 		var current_head = this.snake[0],
@@ -85,11 +83,7 @@ function Snake() {
 			this.current_direction = 'up';
 		} else if (snake_element0.y > snake_element1.y) {
 			this.current_direction = 'down';
-		} else {
-			alert('WTF man?!');
 		}
-
-		console.log(this.current_direction);
 	};
 	this.get_opposite_direction = function () {
 		var opposite_direction = null;
@@ -111,5 +105,4 @@ function Snake() {
 
 		return opposite_direction;
 	};
-}
-;
+};

@@ -53,12 +53,20 @@ io.on('connection', function (socket) {
 			} else {
 				socket.join(room_name);
 				room.setOneMorePlayer(socket.id);
-				socket.emit('coordinates', room.snakes_list.map(function (s) {
-					return {
+
+				var list = [];
+				for (var socket_id in room.snakes_list) {
+					var s = room.snakes_list[socket_id];
+
+					list.push({
 						snake: s.snake,
-						current_direction: s.current_direction
-					};
-				}));
+						current_direction: s.current_direction,
+						socket_id: socket_id
+					});
+				}
+
+				socket.emit('coordinates', list);
+				socket.to(room_name).emit('coordinates', list);
 				socket.emit('message', 'You are in room ' + room_name);
 				socket.room = room_name;
 				emit_rooms_statistics(room_name);
@@ -125,10 +133,28 @@ io.on('connection', function (socket) {
 });
 
 var emit_positions = function (room) {
-	room.players_list.forEach(function (socket_id, index) {
-		sockets[socket_id].emit('data', {
-		});
+	var room_name = room.getRoomName(),
+		used_sockets = {};
+
+	rooms_actions[room_name].forEach(function (a) {
+		room.snakes_list[a.socket_id].move(a.direction);
+		used_sockets[a.socket_id] = true;
 	});
+
+	for (var socket_id in room.snakes_list) {
+		if (used_sockets[socket_id]) {
+			continue;
+		}
+
+		room.snakes_list[socket_id].move(room.snakes_list[socket_id].current_direction);
+	}
+
+	room.players_list.forEach(function (socket_id) {
+		console.log(rooms_actions, room_name, socket_id);
+		sockets[socket_id].emit('data', rooms_actions[room_name]);
+	});
+
+	rooms_actions[room_name] = [];
 };
 
 setInterval(function () {

@@ -8,7 +8,7 @@ function Board() {
 	};
 
 	this.get_free_place = function (length, min_distance_to_others) {
-		var r = Math.round(Math.random() * 30);
+		var r = 10 + Math.round(Math.random() * 30);
 
 		return {
 			from: {
