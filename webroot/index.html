@@ -38,19 +38,20 @@
 			  </div>
 		  	</div>
 		  	<div id="board_screen">
-		      <form>
+		      <!-- <form>
 		      	<input type="text" name="username" value=""/>
-		      	<input type="button" value="Започни игра" name="username"/>
-		      </form>
+		      	<div><a id="room3" type="button" class="btn" onclick="joinRoom(3);">Започни игра</a></div>
+		      </form> -->
 		  	</div>
 	    </div>
 
 	    <div id="main">
 	    	<div id="input_screen" class="position_middle">
-    		  <h2 class="luck small">Въведи си името</h2>
+    		  <h2 class="luck small">Въведи си username:</h2>
+    		  <span class="color_white">Грешка: <span class="error_txt" id="room_error">!!!dasdasda</span></span>
 		      <form method="post" name="choose_name" action="cool_action">
-		      	<input type="text" name="username" value=""/>
-		      	<input type="button" value="Започни игра" name="username"/>
+		      	<input class="input_field" type="text" name="username" value=""/>
+		      	<div><a id="room3" type="button" class="btn" onclick="startGame();">Започни игра</a></div>
 		      </form>
 		  	</div>
 
