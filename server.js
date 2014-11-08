@@ -62,7 +62,7 @@ io.on('connection', function (socket) {
 		}
 
 		// if room exists
-		if (found_room===1) {
+		if (room_found===1) {
 			// if room is full
 			if (rooms_list[i].isFull()) {
 				socket.emit('joinRoom',data.room+' is full');
