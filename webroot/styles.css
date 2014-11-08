@@ -1,0 +1,91 @@
+body {
+	margin:0;
+}
+
+#container {
+	height:100%;
+	width:100%;
+}
+#upline {
+	background: url('/images/bg_menu.png') repeat-x center top;
+	position: relative;
+	z-index: 800;
+	height: 95px;
+	margin-top: 25px;
+}
+
+#menu {
+	margin-left: auto;
+	margin-right: auto;
+	width: 992px;
+	padding-top:20px;
+}
+
+#menu div {
+	display:inline-block;
+}
+
+#logo {
+	width:200px;
+}
+
+#actualMenu {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	font-size: 100%;
+	vertical-align: baseline;
+	background: transparent;
+}
+
+#actualMenu li {
+	display: inline;
+	float: left;
+	font-size: 18px;
+	text-transform: uppercase;
+	margin-left:24px;
+}
+
+#actualMenu li a {
+	color:#fff;
+	text-decoration: none;
+	font-weight:700;
+	font-size:14px;
+}
+
+#actualMenu li.active a {
+	color:#c5db3b;
+}
+
+.cta_text {
+	margin: 30px auto;
+	width: 960px;
+	font-size: 35px;
+	line-height: 40px;
+}
+
+.cta_text p {
+	line-height: 49px;
+	text-align: left;
+	margin-bottom: 5px;
+}
+
+.cta_text div {
+	display:inline-block;
+}
+.cta_btn {
+	margin-top: 15px;
+	text-align: left;
+	line-height: 18px;
+	padding: 25px 0 0 25px;
+	display: block;
+	position: relative;
+	width: 264px;
+	height: 58px;
+	font-size: 35px;
+	color: #fff;
+	background: url('/images/sprite.png') no-repeat -2px -647px;
+	text-decoration: none;
+}

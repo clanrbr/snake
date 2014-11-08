@@ -5,6 +5,7 @@
 	<script src="/socket.io/socket.io.js" type="text/javascript"></script>
 	<script src="js.js" type="text/javascript"></script>
 	<script src="snake.js" type="text/javascript"></script>
+	<link rel="stylesheet" href="styles.css"/>
 	<script type="text/javascript">
 		var io_address = 'http://localhost:3000',
 			socket = io.connect(io_address);
@@ -39,9 +40,35 @@
 	</script>
 </head>
 <body>
-	<!--<input type="button" value="Create a room" onclick="createRoom();"/>-->
-	<input type="button" value="Join a room" onclick="joinRoom();"/>
-	<input type="button" value="Leave a room" onclick="leaveRoom();"/>
-	<div id="snakediv"></div>
+	<div id="container">
+		<div id="upline">
+			<div id="menu">
+				<div id="logo">ЯКОТО ЛОГО</div>
+				<div>
+			        <ul id="actualMenu">
+			          <li class="active"><a href="/index.html">Вкъщи</a></li>
+			          <li><a href="#">Зали</a></li>
+			          <li><a href="#">Статистика</a></li>
+			          <li><a href="#">Вход</a></li>
+			        </ul>
+	  			</div>
+			</div>
+		</div>
+		<div class="cta_text">
+	      <p>
+	        <span>Online Multiplayer Snake</span>
+	      </p>
+	      <p>
+	        <span>Яденето на блокчета</span><br><span>никога не е било толкова забавно</span>
+	      </p>
+	      <div><a href="#" class="cta_btn">Join room 1</a></div>
+	      <div><a href="#" class="cta_btn">Join room 2</a></div>
+	      <div><a href="#" class="cta_btn">Join room 3</a></div>
+	    </div>
+		<!--<input type="button" value="Create a room" onclick="createRoom();"/>-->
+		<input type="button" value="Join a room" onclick="joinRoom();"/>
+		<input type="button" value="Leave a room" onclick="leaveRoom();"/>
+		<div id="snakediv"></div>
+	</div>
 </body>
 </html>
