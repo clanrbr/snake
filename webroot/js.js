@@ -57,7 +57,6 @@ function switchScreen(show_screen) {
 	} else {
 		begin_screen.style.display="block";
 	}
-	return false;
 }
 
 function leaveRoom() {
