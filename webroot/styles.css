@@ -179,4 +179,5 @@ body {
 	width:1000px;
 	height:800px;
 	border: 1px solid red;
+	overflow:hidden;
 }
