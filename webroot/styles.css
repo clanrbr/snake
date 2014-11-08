@@ -2,6 +2,7 @@ body {
 	margin:0;
 	font-family: 'Open Sans', sans-serif;
 	background: url('/images/slider_1.jpg') no-repeat;
+	background-color:#92baf7;
 }
 
 #container {
