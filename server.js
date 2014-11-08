@@ -14,9 +14,9 @@ server.listen(port);
 console.log('Listening on port ' + port);
 
 // For testing purposes
-rooms_list.push(new Room.Room({name: 'Noobs', total_players: 5, gridx: 50, gridy: 50, description: 'This is the default version.'}));
-rooms_list.push(new Room.Room({name: 'Mellee', total_players: 5, gridx: 60, gridy: 30, description: 'Every brick gives you superpowers'}));
-rooms_list.push(new Room.Room({name: 'Deathmatch', total_players: 5, gridx: 60, gridy: 40, description: 'Eat everybody\'s tail.'}));
+rooms_list.push(new Room.Room({name: 'Noobs', total_players: 5, gridx: 40, gridy: 25, description: 'This is the default version.'}));
+rooms_list.push(new Room.Room({name: 'Mellee', total_players: 5, gridx: 50, gridy: 40, description: 'Every brick gives you superpowers'}));
+rooms_list.push(new Room.Room({name: 'Deathmatch', total_players: 5, gridx: 80, gridy: 40, description: 'Eat everybody\'s tail.'}));
 
 // GET static content
 app.get('/*', function (req, res) {
@@ -119,7 +119,7 @@ io.on('connection', function (socket) {
 		});
 	});
 
-	socket.on('getInfoRoom',function(room) {
+	socket.on('getInfoRoom', function (room) {
 
 	});
 
@@ -152,6 +152,10 @@ io.on('connection', function (socket) {
 });
 
 var move = function (room_name, snake, direction) {
+	if (!snake) {
+		return;
+	}
+
 	var next_position = snake.get_next_position(direction),
 		room = rooms_list.filter(function (room) {
 			return room.getRoomName() === room_name;
