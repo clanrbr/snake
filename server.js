@@ -68,7 +68,7 @@ io.on('connection', function (socket) {
 				socket.emit('joinRoom',data.room+' is full');
 			} else {
 				socket.join(data.room);
-				rooms_list[i].setOnePlayer();
+				rooms_list[i].setOneMorePlayer();
 				socket.emit('joinRoom','You are in room ' + data.room);
 			}
 		} else {

@@ -10,7 +10,7 @@ function Rooms (data) {
     this.getRoomName = function() {
         return this.name;
     };
-    this.setOnePlayer = function() {
+    this.setOneMorePlayer = function() {
         this.number_of_players++;
     };
     this.removeOnePlayer = function() {
