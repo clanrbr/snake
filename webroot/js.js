@@ -99,18 +99,9 @@ function startGame() {
 	if (current_room) {
 		socket.emit('joinRoom', {room: current_room});
 	}
-	// if (roomnumb === 1) {
-	// 	socket.emit('joinRoom', {room: 'Noobs'});
-	// } else if (roomnumb === 2) {
-	// 	socket.emit('joinRoom', {room: 'Mellee'});
-	// }
-	// else if (roomnumb === 3) {
-	// 	socket.emit('joinRoom', {room: 'Deathmatch'});
-	// }
 }
 
 function joinRoom(roomname) {
-
 	if (roomname) {
 		room = statistics.filter(function (room) {
 			return room.name === roomname;
