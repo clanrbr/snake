@@ -10,6 +10,8 @@
 			socket = io.connect(io_address);
 
 		window.onload = function(){
+			socket.emit('get_rooms');
+			// this should be moved for further usage
 			Snake.init();
 			Snake.generate_snake({x: 300, y: 100}, {x: 400, y:120});
 		};
@@ -19,17 +21,21 @@
 			Snake.move(data.size);
 		});
 
-		socket.on('createRoom', function (data) {
-			console.log(data);
-		});
+//		socket.on('createRoom', function (data) {
+//			console.log(data);
+//		});
 
 		socket.on('joinRoom', function (data) {
 			console.log(data);
 		});
+
+		socket.on('rooms_statistics', function(rooms){
+			console.log('rooms_statistics', rooms);
+		});
 	</script>
 </head>
 <body>
-	<input type="button" value="Create a room" onclick="createRoom();"/>
+	<!--<input type="button" value="Create a room" onclick="createRoom();"/>-->
 	<input type="button" value="Join a room" onclick="joinRoom();"/>
 	<div id="snakediv"></div>
 </body>
