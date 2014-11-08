@@ -29,10 +29,7 @@ function Room(data) {
 		return this.players_list.length;
 	}
 	this.isFull = function () {
-		if (this.total_players === this.getNumberOfPlayers())
-			return true;
-
-		return false;
+		return this.total_players >= this.players_list.length;
 	};
 	this.already_joined = function (player) {
 		return this.players_list.indexOf(player) > -1;
@@ -40,7 +37,7 @@ function Room(data) {
 	this.get_statistics = function () {
 		return {
 			name: this.name,
-			current_players: this.getNumberOfPlayers(),
+			current_players: this.players_list.length,
 			max_players: this.total_players
 		};
 	};

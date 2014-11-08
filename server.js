@@ -4,7 +4,7 @@ var app = require('express')(),
 	port = 3000,
 	Room = require('./room.js'),
 	rooms_list = new Array(),
-	fps = 60;
+	fps = 3;
 
 server.listen(port);
 console.log('Listening on port ' + port);
