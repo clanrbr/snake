@@ -68,15 +68,21 @@ window.onload = function () {
 	});
 
 	socket.on('coordinates', function (data) {
+		var colors=['yellow','red','blue','green'];
+		console.log(data);
+
+		var current_player=0;
 		for (var i in data) {
 			if (Snakes[data[i].socket_id]) {
+				current_player++;
 				continue;
 			}
-
 			Snakes[data[i].socket_id] = new Snake();
 			Snakes[data[i].socket_id].init();
 			Snakes[data[i].socket_id].id = data[i].socket_id;
+			Snakes[data[i].socket_id].color=colors[current_player];
 			Snakes[data[i].socket_id].generate_snake(data[i].snake[data[i].snake.length - 1], data[i].snake[0]);
+			current_player++;
 		}
 	});
 
