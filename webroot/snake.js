@@ -9,7 +9,7 @@ function Snake() {
 	};
 	this.generate_pixel = function (x, y, tail) {
 		console.log(x, y);
-		this.box.innerHTML = this.box.innerHTML + '<div class="sss ' + this.id + '" style="top: ' + y * this.box_side + 'px; left: ' + x * this.box_side + 'px;">&nbsp;</div>';
+		this.box.innerHTML = this.box.innerHTML + '<div class="sss ' + this.id + '" style="top: ' + y * this.box_side + 'px; left: ' + x * this.box_side + 'px;"><img src="/images/snake/snake_green.png"</div>';
 
 		if (tail) {
 			this.snake.push({x: x, y: y});
