@@ -3,8 +3,8 @@ var io_address = 'http://192.168.0.101:3000',
 	Snakes = {},
 	statistics = [],
 	current_room = '',
-	killed=null,
-	glob_snake_name=null;
+	killed = null,
+	glob_snake_name = null;
 
 // io_address = 'http://192.168.0.101:3000',
 window.onload = function () {
@@ -14,7 +14,7 @@ window.onload = function () {
 		var timestamp = +new Date();
 
 		for (var i in data) {
-			if (Snakes[data[i].socket_id]){
+			if (Snakes[data[i].socket_id]) {
 				Snakes[data[i].socket_id].move(data[i].direction);
 				Snakes[data[i].socket_id].timestamp = timestamp;
 			}
@@ -84,7 +84,7 @@ window.onload = function () {
 			Snakes[data[i].socket_id] = new Snake();
 			Snakes[data[i].socket_id].init();
 			Snakes[data[i].socket_id].id = data[i].socket_id;
-			Snakes[data[i].socket_id].color = colors[current_player];
+			Snakes[data[i].socket_id].color = colors[current_player % colors.length];
 			Snakes[data[i].socket_id].generate_whole_snake(data[i].snake);
 			current_player++;
 		}
@@ -104,14 +104,12 @@ window.onload = function () {
 			document.getElementById('stats').style.display = "block";
 		}
 
-		if (Snakes[socket_id].snake.length>0) {
-			document.getElementById('stats').innerHTML='Your snake: <strong>'+glob_snake_name+'</strong> scrored '+ (Snakes[socket_id].snake.length-4) + ' points.';
+		if (Snakes[socket_id].snake.length > 0) {
+			document.getElementById('stats').innerHTML = 'Your snake: <strong>' + glob_snake_name + '</strong> scrored ' + (Snakes[socket_id].snake.length - 4) + ' points.';
 			for (var i in Snakes[socket_id].snake) {
-				var paras = document.getElementsByClassName(socket_id);
 				while (document.getElementsByClassName(socket_id).length) {
 					document.getElementsByClassName(socket_id)[0].parentNode.removeChild(document.getElementsByClassName(socket_id)[0]);
 				}
-				;
 			}
 			delete Snakes[socket_id];
 		}
@@ -131,7 +129,7 @@ window.onload = function () {
 function startGame() {
 	if (current_room) {
 		switchScreen(2);
-		glob_snake_name=document.getElementById('snake_name').value;
+		glob_snake_name = document.getElementById('snake_name').value;
 		// setTimeout(function () {
 		socket.emit('joinRoom', {room: current_room});
 
