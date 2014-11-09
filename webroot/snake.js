@@ -9,8 +9,17 @@ function Snake() {
 	};
 	this.generate_pixel = function (x, y, tail) {
 		console.log(x, y);
-		this.box.innerHTML = this.box.innerHTML + '<div class="sss ' + this.id + '" style="top: ' + y * this.box_side + 'px; left: ' + x * this.box_side + 'px;"><img src="/images/snake/snake_green.png"</div>';
+		var directionstyle="sss_left_right";
 
+		console.log(this.current_direction);
+		if (this.current_direction==='up' || this.current_direction==='down') {
+			directionstyle="sss_top_down";
+		}
+
+		this.box.innerHTML = this.box.innerHTML + '<div class="'+directionstyle +' '+ this.id + '" style="top: ' + y * this.box_side + 'px; left: ' + x * this.box_side + 
+		'px;"><img style="image_style_left" src="/images/snake/snake_green.png"</div>';
+
+		console.log(x,y);
 		if (tail) {
 			this.snake.push({x: x, y: y});
 		} else {
