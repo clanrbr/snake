@@ -94,6 +94,10 @@ body {
 
 #input_screen {
 	display:none;
+};
+
+#leave_screen {
+	display:none;
 }
 
 
@@ -353,4 +357,12 @@ body {
 
 .background_1000_800 {
 	background: url('/images/board_background/snake_bgr_1000x800px.png');
+}
+
+.background_1600_800 {
+	background: url('/images/board_background/snake_bgr_1600x800_clean.png');
+}
+
+#show_error {
+	display:none;
 }

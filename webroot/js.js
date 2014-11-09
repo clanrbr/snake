@@ -4,6 +4,8 @@ var io_address = 'http://localhost:3000',
 	statistics = [],
 	current_room = '';
 
+
+// io_address = 'http://192.168.0.101:3000',
 window.onload = function () {
 	socket.emit('rooms_statistics');
 
@@ -24,11 +26,17 @@ window.onload = function () {
 	});
 
 	socket.on('message', function (data) {
-		console.log(data);
+		if (data) {
+			document.getElementById('room_error').innerHTML = data;
+		}
 	});
 
 	socket.on('join_status', function (data) {
-		console.log(data);
+		if (data != 1) {
+			document.getElementById('show_error').style.display = "block";
+			switchScreen(1);
+		}
+
 	});
 
 	socket.on('leave_status', function (data) {
@@ -118,7 +126,16 @@ window.onload = function () {
 
 function startGame() {
 	if (current_room) {
-		socket.emit('joinRoom', {room: current_room});
+		switchScreen(2);
+		setTimeout(function () {
+			socket.emit('joinRoom', {room: current_room});
+		}, 2000);
+	}
+}
+
+function leaveGame() {
+	if (current_room) {
+		window.location.href = window.location.href;
 	}
 }
 
@@ -140,7 +157,7 @@ function joinRoom(roomname) {
 			if ((room.gridx * 20) === 1000) {
 				background = 'background_1000_800 board_screen';
 			} else if ((room.gridx * 20) === 1600) {
-
+				background = 'background_1600_800 board_screen';
 			}
 
 			snakediv.className = background;
@@ -150,15 +167,18 @@ function joinRoom(roomname) {
 
 function switchScreen(show_screen) {
 	input_screen = document.getElementById('input_screen');
+	leave_screen = document.getElementById('leave_screen');
 	// board_screen = document.getElementById('board_screen');
 
 	input_screen.style.display = "none";
+	leave_screen.style.display = "none";
 	// board_screen.style.display = "none";
 
 	if (show_screen === 1) {
 		input_screen.style.display = "block";
 	} else if (show_screen === 2) {
-		// board_screen.style.display = "block";
+		begin_screen.style.display = "none";
+		leave_screen.style.display = "block";
 	}
 }
 
