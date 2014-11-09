@@ -69,7 +69,7 @@ window.onload = function () {
 	});
 
 	socket.on('coordinates', function (data) {
-		var colors=['yellow','red','blue','green'];
+		var colors=['yellow','red','blue','green','yellow'];
 
 		var current_player=0;
 		for (var i in data) {
@@ -96,17 +96,19 @@ window.onload = function () {
 			killed=1;
 			document.getElementById('snakediv').style.display = "none";
 			document.getElementById('death_screen').style.display = "block";	
+			document.getElementById('stats').style.display="block";
 		}
 		if (Snakes[socket_id].snake.length>0) {
+			document.getElementById('stats').innerHTML=Snakes[socket_id].snake.length-4;
 			for (var i in Snakes[socket_id].snake) {
 				var paras = document.getElementsByClassName(socket_id);
-				while (paras[0]) {
-				    paras[0].parentNode.removeChild(paras[0]);
+				while (document.getElementsByClassName(socket_id).length) {
+				    document.getElementsByClassName(socket_id)[0].parentNode.removeChild(document.getElementsByClassName(socket_id)[0]);
+				    console.log(document.getElementsByClassName(socket_id).length);
 				};
 			}
 			delete Snakes[socket_id];
 		}
-
 	});
 
 	socket.on('food', function (foods) {

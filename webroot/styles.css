@@ -482,5 +482,8 @@ body {
 	background: url('/images/eats/bomb_for_eat.png');
 }
 
+#stats {
+	display:none;
+}
 
 
