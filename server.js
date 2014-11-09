@@ -5,7 +5,7 @@ var app = require('express')(),
 	Room = require('./room.js'),
 	rooms_list = new Array(),
 	rooms_actions = {'Noobs': [], 'Mellee': [], 'Deathmatch': []},
-fps = 0.6,
+fps = 15,
 	sockets = {},
 	send_data = function () {
 	};
@@ -38,8 +38,8 @@ io.on('connection', function (socket) {
 	socket.on('joinRoom', function (data) {
 		// check for existing room
 		var room_name = data.room,
-			room = rooms_list.filter(function (room) {
-				return room.getRoomName() === room_name;
+			room = rooms_list.filter(function (r) {
+				return r.getRoomName() === room_name;
 			})[0];
 
 		if (room) {
@@ -81,8 +81,8 @@ io.on('connection', function (socket) {
 	socket.on('leaveRoom', function (data) {
 		// check for existing room
 		var room_name = data.room,
-			room = rooms_list.filter(function (room) {
-				return room.getRoomName() === room_name;
+			room = rooms_list.filter(function (r) {
+				return r.getRoomName() === room_name;
 			})[0];
 
 		if (room) {
@@ -141,8 +141,8 @@ io.on('connection', function (socket) {
 			room;
 
 		if (room_name) {
-			room = rooms_list.filter(function (room) {
-				return room.getRoomName() === room_name;
+			room = rooms_list.filter(function (r) {
+				return r.getRoomName() === room_name;
 			})[0];
 
 			room.removeOnePlayer(socket.id);
@@ -154,17 +154,29 @@ io.on('connection', function (socket) {
 
 var move = function (room_name, snake, direction) {
 	if (!snake) {
-		return;
+		return false;
 	}
 
 	var next_position = snake.get_next_position(direction),
-		room = rooms_list.filter(function (room) {
-			return room.getRoomName() === room_name;
+		room = rooms_list.filter(function (r) {
+			return r.getRoomName() === room_name;
 		})[0],
-		next_position_free = room.check_free(next_position.x, next_position.y);
+		next_position_free = room.check_free(next_position.x, next_position.y),
+		food = room.food;
 
 	if (next_position_free) {
 		snake.move(direction);
+
+		if (food.x === next_position.x && food.y === next_position.y) {
+			snake.grow(snake.snake[snake.snake.length - 1].x, snake.snake[snake.snake.length - 1].y + (direction === 'up' ? 1 : -1), true);
+
+			for (var socket_id in room.snakes_list) {
+				sockets[socket_id].emit('grow', snake.id);
+			}
+
+			delete room.food;
+			generate_food(room);
+		}
 	} else {
 		var snakes_list = room.snakes_list;
 
@@ -174,13 +186,16 @@ var move = function (room_name, snake, direction) {
 
 		room.removeOnePlayer(snake.id);
 	}
+
+	return next_position_free;
 };
 
 var emit_positions = function (room) {
 	var room_name = room.getRoomName(),
-		used_sockets = {};
+		used_sockets = {},
+		move_result = false;
 
-	rooms_actions[room_name].forEach(function (a) {
+	rooms_actions[room_name].forEach(function (a, i) {
 		move(room_name, room.snakes_list[a.socket_id], a.direction);
 		used_sockets[a.socket_id] = true;
 	});
@@ -191,6 +206,7 @@ var emit_positions = function (room) {
 		}
 
 		move(room_name, room.snakes_list[socket_id], room.snakes_list[socket_id].current_direction);
+		used_sockets[socket_id] = true;
 	}
 
 	room.players_list.forEach(function (socket_id) {

@@ -22,7 +22,7 @@ var Board = function () {
 	};
 
 	this.check_free = function (x, y, snakes_list) {
-		if (x < 0 || x > this.x || y < 0 || y > this.y) {
+		if (x < 0 || x >= this.x || y < 0 || y >= this.y) {
 			return false;
 		}
 

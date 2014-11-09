@@ -57,7 +57,6 @@ window.onload = function () {
 
 
 		statistics = rooms;
-		console.log('rooms_statistics', rooms);
 	});
 
 	socket.on('coordinates', function (data) {
@@ -73,13 +72,20 @@ window.onload = function () {
 		}
 	});
 
+	socket.on('grow', function(socket_id){
+		Snakes[socket_id].grow = true;
+	});
+
 	socket.on('death', function (socket_id) {
 		console.log('death', socket_id);
 	});
 
-	socket.on('food', function(food_coordinates){
+	socket.on('food', function (food_coordinates) {
+		if (document.getElementsByClassName('food').length) {
+			document.getElementsByClassName('food')[0].remove();
+		}
+
 		document.getElementById('snakediv').innerHTML = document.getElementById('snakediv').innerHTML + '<div class="food" style="top: ' + food_coordinates.y * 20 + 'px; left: ' + food_coordinates.x * 20 + 'px;">&nbsp;</div>';
-		console.log('food_coordinates', food_coordinates);
 	});
 
 	window.addEventListener("keydown", function (e) {

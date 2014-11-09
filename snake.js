@@ -4,8 +4,12 @@ var Snake = function () {
 	this.next_direction = null;
 	this.id = null;
 
-	this.grow = function (x, y) {
-		this.snake.unshift({x: x, y: y});
+	this.grow = function (x, y, tail) {
+		if (tail) {
+			this.snake.push({x: x, y: y});
+		} else {
+			this.snake.unshift({x: x, y: y});
+		}
 	};
 	this.reduce = function () {
 		this.snake.pop();

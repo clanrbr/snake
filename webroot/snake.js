@@ -4,11 +4,11 @@ function Snake() {
 	this.box_side = 20;
 	this.snake = [];
 	this.current_direction = null;
+	this.grow = false;
 	this.init = function () {
 		this.box = document.getElementById('snakediv');
 	};
 	this.generate_pixel = function (x, y, tail) {
-		console.log(x, y);
 		this.box.innerHTML = this.box.innerHTML + '<div class="sss ' + this.id + '" style="top: ' + y * this.box_side + 'px; left: ' + x * this.box_side + 'px;"><img src="/images/snake/snake_green.png"</div>';
 
 		if (tail) {
@@ -18,12 +18,8 @@ function Snake() {
 		}
 	};
 	this.remove_pixel = function () {
-//		if (Math.random() < 0.9) {
-			this.box.removeChild(this.box.getElementsByClassName(this.id)[0]);
-			this.snake.pop();
-//		} else {
-//			console.log('Snake just got larger!');
-//		}
+		this.box.removeChild(this.box.getElementsByClassName(this.id)[0]);
+		this.snake.pop();
 	};
 	this.generate_snake = function (from, to) {
 		for (var x = from.x; x <= to.x; x++) {
@@ -70,7 +66,11 @@ function Snake() {
 		this.generate_pixel(new_head.x, new_head.y, false);
 	};
 	this.move_tail = function () {
-		this.remove_pixel();
+		if (this.grow) {
+			this.grow = false;
+		} else {
+			this.remove_pixel();
+		}
 	};
 	this.set_current_direction = function () {
 		var snake_element0 = this.snake[0],
@@ -106,4 +106,5 @@ function Snake() {
 
 		return opposite_direction;
 	};
-};
+}
+;
