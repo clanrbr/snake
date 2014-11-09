@@ -77,6 +77,11 @@ window.onload = function () {
 		console.log('death', socket_id);
 	});
 
+	socket.on('food', function(food_coordinates){
+		document.getElementById('snakediv').innerHTML = document.getElementById('snakediv').innerHTML + '<div class="food" style="top: ' + food_coordinates.y * 20 + 'px; left: ' + food_coordinates.x * 20 + 'px;">&nbsp;</div>';
+		console.log('food_coordinates', food_coordinates);
+	});
+
 	window.addEventListener("keydown", function (e) {
 		var prevent_default = e.keyCode >= 37 && e.keyCode <= 40;
 

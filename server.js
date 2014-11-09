@@ -64,6 +64,7 @@ io.on('connection', function (socket) {
 					});
 				}
 
+				socket.emit('food', room.food);
 				socket.emit('coordinates', list);
 				socket.to(room_name).emit('coordinates', list);
 				socket.emit('message', 'You are in room ' + room_name);
@@ -199,8 +200,26 @@ var emit_positions = function (room) {
 	rooms_actions[room_name] = [];
 };
 
+var generate_food = function (room) {
+	if (room.food) {
+		return;
+	}
+
+	room.food = room.generate_food();
+
+	room.players_list.forEach(function (socket_id) {
+		sockets[socket_id].emit('food', room.food);
+	});
+};
+
 setInterval(function () {
 	rooms_list.forEach(function (r) {
 		emit_positions(r);
 	});
 }, 1000 / fps);
+
+setInterval(function () {
+	rooms_list.forEach(function (r) {
+		generate_food(r);
+	});
+}, 1000);
