@@ -5,9 +5,9 @@ var app = require('express')(),
 	Room = require('./room.js'),
 	rooms_list = new Array(),
 	rooms_actions = {'Noobs': [], 'Mellee': [], 'Deathmatch': []},
-NoobsFPS = 5,
+NoobsFPS = 1,
 	MelleeFPS = 15,
-	DeatchmatchFPS = 5,
+	DeatchmatchFPS = 30,
 	sockets = {},
 	send_data = function () {
 	};
@@ -110,6 +110,10 @@ io.on('connection', function (socket) {
 	});
 
 	socket.on('move', function (direction) {
+		if (!socket.room) {
+			return;
+		}
+
 		rooms_actions[socket.room].forEach(function (s, index) {
 			if (s.socket_id === socket.id) {
 				rooms_actions[socket.room].splice(index, 1);

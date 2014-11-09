@@ -126,10 +126,9 @@ function startGame() {
 				case 39: case 68: case 102:
 					socket.emit('move', 'right');
 					break;
-				case 40: case 83: case 98: socket.emit('move', 'down');
+				case 40: case 83: case 98:
+					socket.emit('move', 'down');
 					break;
-				default:
-					console.log(e.keyCode);
 			}
 
 			if (prevent_default) {

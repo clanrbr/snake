@@ -16,9 +16,33 @@ var Snake = function () {
 	};
 
 	this.generate_snake = function (from, to) {
-		for (var x = from.x; x <= to.x; x++) {
-			for (var y = from.y; y <= to.y; y++) {
-				this.grow(x, y);
+		if (from.x <= to.x) {
+			if (from.y <= to.y) {
+				for (var x = from.x; x <= to.x; x++) {
+					for (var y = from.y; y <= to.y; y++) {
+						this.grow(x, y);
+					}
+				}
+			} else {
+				for (var x = from.x; x <= to.x; x++) {
+					for (var y = from.y; y >= to.y; y--) {
+						this.grow(x, y);
+					}
+				}
+			}
+		} else {
+			if (from.y <= to.y) {
+				for (var x = from.x; x >= to.x; x--) {
+					for (var y = from.y; y <= to.y; y++) {
+						this.grow(x, y);
+					}
+				}
+			} else {
+				for (var x = from.x; x >= to.x; x--) {
+					for (var y = from.y; y >= to.y; y--) {
+						this.grow(x, y);
+					}
+				}
 			}
 		}
 

@@ -24,7 +24,7 @@ function Room(data) {
 		return this.players_list.length;
 	};
 	this.setOneMorePlayer = function (player) {
-		var coordinates = this.Board.get_free_place(5, 5);
+		var coordinates = this.Board.get_free_place(4, 4, this.snakes_list);
 
 		this.players_list.push(player);
 		this.snakes_list[player] = new Snake();
