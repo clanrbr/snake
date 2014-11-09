@@ -81,8 +81,6 @@ window.onload = function () {
 			Snakes[data[i].socket_id].init();
 			Snakes[data[i].socket_id].id = data[i].socket_id;
 			Snakes[data[i].socket_id].color=colors[current_player];
-			// console.log(current_player);
-			// Snakes[data[i].socket_id].color=colors[current_player];
 			Snakes[data[i].socket_id].generate_snake(data[i].snake[data[i].snake.length - 1], data[i].snake[0]);
 			current_player++;
 		}
