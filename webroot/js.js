@@ -97,31 +97,6 @@ window.onload = function () {
 			document.getElementById('snakediv').innerHTML = document.getElementById('snakediv').innerHTML + '<div class="food food' + foods[i].value + '" style="top: ' + foods[i].y * 20 + 'px; left: ' + foods[i].x * 20 + 'px;" data-value="' + foods[i].value + '">&nbsp;</div>';
 		}
 	});
-
-	window.addEventListener("keydown", function (e) {
-		var prevent_default = e.keyCode >= 37 && e.keyCode <= 40;
-
-		switch (e.keyCode) {
-			case 37:
-				socket.emit('move', 'left');
-				break;
-			case 38:
-				socket.emit('move', 'up');
-				break;
-			case 39:
-				socket.emit('move', 'right');
-				break;
-			case 40:
-				socket.emit('move', 'down');
-				break;
-		}
-
-		if (prevent_default) {
-			e.preventDefault();
-		}
-
-		return !prevent_default;
-	});
 };
 
 function startGame() {
@@ -129,7 +104,34 @@ function startGame() {
 		switchScreen(2);
 		setTimeout(function () {
 			socket.emit('joinRoom', {room: current_room});
+			
 		}, 2000);
+
+		window.addEventListener("keydown", function (e) {
+			var prevent_default = e.keyCode >= 37 && e.keyCode <= 40;
+
+			switch (e.keyCode) {
+				case 37: case 65: case 100:
+					socket.emit('move', 'left');
+					break;
+				case 38: case 87: case 104:
+					socket.emit('move', 'up');
+					break;
+				case 39: case 68: case 102:
+					socket.emit('move', 'right');
+					break;
+				case 40: case 83: case 98: socket.emit('move', 'down');
+					break;
+				default:
+					console.log(e.keyCode);
+			}
+
+			if (prevent_default) {
+				e.preventDefault();
+			}
+
+			return !prevent_default;
+		});
 	}
 }
 
