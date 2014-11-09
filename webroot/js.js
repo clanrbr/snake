@@ -90,8 +90,12 @@ window.onload = function () {
 		Snakes[data.snake].grow += data.value;
 	});
 
+	
 	socket.on('death', function (socket_id) {
+		document.getElementById('snakediv').style.display = "none";
+		document.getElementById('death_screen').style.display = "block";
 		console.log('death', socket_id);
+
 	});
 
 	socket.on('food', function (foods) {

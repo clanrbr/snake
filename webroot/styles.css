@@ -402,6 +402,10 @@ body {
 	background: url('/images/board_background/snake_bgr_1600x800_clean.png');
 }
 
+#death_screen {
+	display:none;
+}
+
 #show_error {
 	display:none;
 }
