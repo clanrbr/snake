@@ -69,7 +69,6 @@ window.onload = function () {
 
 	socket.on('coordinates', function (data) {
 		var colors=['yellow','red','blue','green'];
-		console.log(data);
 
 		var current_player=0;
 		for (var i in data) {
@@ -90,8 +89,14 @@ window.onload = function () {
 		Snakes[data.snake].grow += data.value;
 	});
 
+	
 	socket.on('death', function (socket_id) {
+		if (socket.io.engine.id===socket_id) {
+			document.getElementById('snakediv').style.display = "none";
+			document.getElementById('death_screen').style.display = "block";	
+		}
 		console.log('death', socket_id);
+
 	});
 
 	socket.on('food', function (foods) {

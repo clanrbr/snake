@@ -12,6 +12,9 @@ NoobsFPS = 1,
 	send_data = function () {
 	};
 
+
+// NoobsFPS = 10,	};
+
 server.listen(port);
 console.log('Listening on port ' + port);
 
