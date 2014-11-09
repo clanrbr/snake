@@ -168,7 +168,7 @@ var move = function (room_name, snake, direction) {
 		var snakes_list = room.snakes_list;
 
 		for (var socket_id in snakes_list) {
-			sockets[socket_id].emit('death', socket_id);
+			sockets[socket_id].emit('death', snake.id);
 		}
 
 		room.removeOnePlayer(snake.id);
