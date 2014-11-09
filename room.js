@@ -5,7 +5,7 @@ function Room(data) {
 	this.Board = new Board();
 	this.Board.init(data.gridx, data.gridy);
 
-	this.food = null; // {x: .., y: ..}
+	this.foods = [];
 
 	this.name = data.name;
 	this.total_players = data.total_players;
@@ -14,6 +14,7 @@ function Room(data) {
 	this.players_list = [];
 	this.snakes_list = {};
 	this.description = data.description;
+	this.max_food = data.max_food;
 
 	// get the name of the room
 	this.getRoomName = function () {
@@ -57,13 +58,15 @@ function Room(data) {
 	};
 
 	this.generate_food = function () {
+		var x, y, value = this.getRoomName() === 'Noobs' ? 1 : Math.floor(Math.random() * 5) + 1;
+
 		do{
 			x = Math.floor(Math.random() * this.gridx);
 			y = Math.floor(Math.random() * this.gridy);
 		}
 		while(!this.check_free(x, y));
 
-		return {x: x, y: y};
+		return {x: x, y: y, value: value};
 	};
 }
 

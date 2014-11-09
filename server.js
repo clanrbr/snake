@@ -5,7 +5,9 @@ var app = require('express')(),
 	Room = require('./room.js'),
 	rooms_list = new Array(),
 	rooms_actions = {'Noobs': [], 'Mellee': [], 'Deathmatch': []},
-fps = 15,
+NoobsFPS = 10,
+	MelleeFPS = 15,
+	DeatchmatchFPS = 30,
 	sockets = {},
 	send_data = function () {
 	};
@@ -14,9 +16,9 @@ server.listen(port);
 console.log('Listening on port ' + port);
 
 // For testing purposes
-rooms_list.push(new Room.Room({name: 'Noobs', total_players: 5, gridx: 40, gridy: 25, description: 'This is the default version.'}));
-rooms_list.push(new Room.Room({name: 'Mellee', total_players: 5, gridx: 50, gridy: 40, description: 'Every brick gives you superpowers'}));
-rooms_list.push(new Room.Room({name: 'Deathmatch', total_players: 5, gridx: 80, gridy: 40, description: 'Eat everybody\'s tail.'}));
+rooms_list.push(new Room.Room({name: 'Noobs', total_players: 5, gridx: 40, gridy: 25, description: 'This is the default version.', max_food: 1}));
+rooms_list.push(new Room.Room({name: 'Mellee', total_players: 5, gridx: 50, gridy: 40, description: 'Every brick gives you superpowers', max_food: 3}));
+rooms_list.push(new Room.Room({name: 'Deathmatch', total_players: 5, gridx: 80, gridy: 40, description: 'Eat everybody\'s tail.', max_food: 5}));
 
 // GET static content
 app.get('/*', function (req, res) {
@@ -64,7 +66,7 @@ io.on('connection', function (socket) {
 					});
 				}
 
-				socket.emit('food', room.food);
+				socket.emit('food', room.foods);
 				socket.emit('coordinates', list);
 				socket.to(room_name).emit('coordinates', list);
 				socket.emit('message', 'You are in room ' + room_name);
@@ -162,20 +164,28 @@ var move = function (room_name, snake, direction) {
 			return r.getRoomName() === room_name;
 		})[0],
 		next_position_free = room.check_free(next_position.x, next_position.y),
-		food = room.food;
+		foods = room.foods;
 
 	if (next_position_free) {
 		snake.move(direction);
 
-		if (food.x === next_position.x && food.y === next_position.y) {
-			snake.grow(snake.snake[snake.snake.length - 1].x, snake.snake[snake.snake.length - 1].y + (direction === 'up' ? 1 : -1), true);
+		for (var i in foods) {
+			var food = foods[i];
 
-			for (var socket_id in room.snakes_list) {
-				sockets[socket_id].emit('grow', snake.id);
+			if (food.x === next_position.x && food.y === next_position.y) {
+				for (var j = 0; j < food.value; j++) {
+					snake.grow(snake.snake[snake.snake.length - 1].x, snake.snake[snake.snake.length - 1].y + (direction === 'up' ? 1 : -1), true);
+				}
+
+				for (var socket_id in room.snakes_list) {
+					sockets[socket_id].emit('grow', {snake: snake.id, value: food.value});
+				}
+
+				room.foods.splice(i, 1);
+				generate_food(room);
+
+				break;
 			}
-
-			delete room.food;
-			generate_food(room);
 		}
 	} else {
 		var snakes_list = room.snakes_list;
@@ -217,22 +227,28 @@ var emit_positions = function (room) {
 };
 
 var generate_food = function (room) {
-	if (room.food) {
+	if (room.foods.length >= room.max_food) {
 		return;
 	}
 
-	room.food = room.generate_food();
+	room.foods.push(room.generate_food());
 
 	room.players_list.forEach(function (socket_id) {
-		sockets[socket_id].emit('food', room.food);
+		sockets[socket_id].emit('food', room.foods);
 	});
 };
 
 setInterval(function () {
-	rooms_list.forEach(function (r) {
-		emit_positions(r);
-	});
-}, 1000 / fps);
+	emit_positions(rooms_list[0]);
+}, 1000 / NoobsFPS);
+
+setInterval(function () {
+	emit_positions(rooms_list[1]);
+}, 1000 / MelleeFPS);
+
+setInterval(function () {
+	emit_positions(rooms_list[2]);
+}, 1000 / DeatchmatchFPS);
 
 setInterval(function () {
 	rooms_list.forEach(function (r) {
