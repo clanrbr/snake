@@ -1,11 +1,11 @@
-var io_address = 'http://192.168.0.101:3000',
+var io_address = 'http://localhost:3000',
 	socket = io.connect(io_address),
 	Snakes = {},
 	statistics = [],
 	current_room = '';
 
 
-// io_address = 'http://localhost:3000',
+// io_address = 'http://192.168.0.101:3000',
 window.onload = function () {
 	socket.emit('rooms_statistics');
 
@@ -119,6 +119,13 @@ window.onload = function () {
 function startGame() {
 	if (current_room) {
 		socket.emit('joinRoom', {room: current_room});
+		switchScreen(2);
+	}
+}
+
+function leaveGame() {
+	if (current_room) {
+		window.location.href=window.location.href;
 	}
 }
 
@@ -150,15 +157,17 @@ function joinRoom(roomname) {
 
 function switchScreen(show_screen) {
 	input_screen = document.getElementById('input_screen');
+	leave_screen = document.getElementById('leave_screen');
 	// board_screen = document.getElementById('board_screen');
 
 	input_screen.style.display = "none";
+	leave_screen.style.display= "none";
 	// board_screen.style.display = "none";
 
 	if (show_screen === 1) {
 		input_screen.style.display = "block";
 	} else if (show_screen === 2) {
-		// board_screen.style.display = "block";
+		leave_screen.style.display = "block";
 	}
 }
 

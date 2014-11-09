@@ -94,6 +94,10 @@ body {
 
 #input_screen {
 	display:none;
+};
+
+#leave_screen {
+	display:none;
 }
 
 
