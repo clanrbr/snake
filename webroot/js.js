@@ -1,4 +1,4 @@
-var io_address = 'http://192.168.0.101:3000',
+var io_address = 'http://localhost:3000',
 	socket = io.connect(io_address),
 	Snakes = {},
 	statistics = [],
@@ -6,7 +6,6 @@ var io_address = 'http://192.168.0.101:3000',
 	killed = null,
 	glob_snake_name = null;
 
-// io_address = 'http://192.168.0.101:3000',
 window.onload = function () {
 	socket.emit('rooms_statistics');
 

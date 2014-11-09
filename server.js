@@ -7,7 +7,7 @@ var app = require('express')(),
 	rooms_actions = {'Noobs': [], 'Mellee': [], 'Deathmatch': []},
 NoobsFPS = 8,
 	MelleeFPS = 14,
-	DeatchmatchFPS = 2,
+	DeatchmatchFPS = 11,
 	sockets = {},
 	send_data = function () {
 	};
