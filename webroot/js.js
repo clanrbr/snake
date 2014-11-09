@@ -95,7 +95,15 @@ window.onload = function () {
 			document.getElementById('snakediv').style.display = "none";
 			document.getElementById('death_screen').style.display = "block";	
 		}
-		console.log('death', socket_id);
+		if (Snakes[socket_id].snake.length>0) {
+			for (var i in Snakes[socket_id].snake) {
+				var paras = document.getElementsByClassName(socket_id);
+				while (paras[0]) {
+				    paras[0].parentNode.removeChild(paras[0]);
+				};
+			}
+			delete(Snakes[socket_id]);
+		}
 
 	});
 

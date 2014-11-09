@@ -157,7 +157,7 @@ function Snake() {
 		if ( (this.last_direction!=null) && (this.last_direction!=this.current_direction) )
 				this.lastcorection.push([snake_element0.x,snake_element0.y]);
 
-		console.log(this.lastcorection);
+		// console.log(this.lastcorection);
 	};
 	this.get_opposite_direction = function () {
 		var opposite_direction = null;
