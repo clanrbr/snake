@@ -5,6 +5,8 @@ function Room(data) {
 	this.Board = new Board();
 	this.Board.init(data.gridx, data.gridy);
 
+	this.food = null; // {x: .., y: ..}
+
 	this.name = data.name;
 	this.total_players = data.total_players;
 	this.gridx = data.gridx;
@@ -50,8 +52,18 @@ function Room(data) {
 			gridy: this.gridy
 		};
 	};
-	this.check_free = function(x, y){
+	this.check_free = function (x, y) {
 		return this.Board.check_free(x, y, this.snakes_list);
+	};
+
+	this.generate_food = function () {
+		do{
+			x = Math.floor(Math.random() * this.gridx);
+			y = Math.floor(Math.random() * this.gridy);
+		}
+		while(!this.check_free(x, y));
+
+		return {x: x, y: y};
 	};
 }
 

@@ -15,7 +15,7 @@ var Board = function () {
 				x: 5,
 				y: r
 			}, to: {
-				x: 25,
+				x: 8,
 				y: r
 			}
 		};
