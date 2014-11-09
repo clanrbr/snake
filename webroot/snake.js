@@ -4,16 +4,16 @@ function Snake() {
 	this.box_side = 20;
 	this.snake = [];
 	this.current_direction = null;
+	this.last_direction = null;
 	this.init = function () {
 		this.box = document.getElementById('snakediv');
 	};
 	this.generate_pixel = function (x, y, tail) {
 		console.log(x, y);
-		var directionstyle="sss_left_right";
+		var directionstyle="sss_left_right_yellow";
 
-		console.log(this.current_direction);
 		if (this.current_direction==='up' || this.current_direction==='down') {
-			directionstyle="sss_top_down";
+			directionstyle="sss_top_down_yellow";
 		}
 
 		this.box.innerHTML = this.box.innerHTML + '<div class="'+directionstyle +' '+ this.id + '" style="top: ' + y * this.box_side + 'px; left: ' + x * this.box_side + 
@@ -42,6 +42,12 @@ function Snake() {
 		}
 
 		this.set_current_direction();
+
+		var directionstyle="sss_left_right_yellow";
+		if (this.current_direction==='up' || this.current_direction==='down') {
+			directionstyle="sss_top_down_yellow";
+		}
+		document.getElementsByClassName(this.id)[0].className = directionstyle+' '+this.id;
 	};
 	this.move = function (direction) {
 		if (direction === this.get_opposite_direction()) {
@@ -68,6 +74,14 @@ function Snake() {
 		}
 
 		this.set_current_direction();
+		var directionstyle="sss_left_right_yellow";
+		if (this.current_direction==='up' || this.current_direction==='down') {
+			directionstyle="sss_top_down_yellow";
+		}
+
+		console.log(this.current_direction,directionstyle,this.id);
+		document.getElementsByClassName(this.id)[this.snake.length-1].className = directionstyle+' '+this.id;
+
 	};
 	this.move_head = function (x, y) {
 		var current_head = this.snake[0],
@@ -82,6 +96,7 @@ function Snake() {
 		this.remove_pixel();
 	};
 	this.set_current_direction = function () {
+		this.last_direction=this.current_direction;
 		var snake_element0 = this.snake[0],
 			snake_element1 = this.snake[1];
 
