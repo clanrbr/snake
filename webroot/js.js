@@ -3,6 +3,7 @@ var io_address = 'http://localhost:3000',
 	Snakes = {},
 	statistics = [],
 	current_room = '';
+	killed=null;
 
 
 // io_address = 'http://192.168.0.101:3000',
@@ -92,6 +93,7 @@ window.onload = function () {
 	
 	socket.on('death', function (socket_id) {
 		if (socket.io.engine.id===socket_id) {
+			killed=1;
 			document.getElementById('snakediv').style.display = "none";
 			document.getElementById('death_screen').style.display = "block";	
 		}
@@ -102,7 +104,7 @@ window.onload = function () {
 				    paras[0].parentNode.removeChild(paras[0]);
 				};
 			}
-			delete(Snakes[socket_id]);
+			delete Snakes[socket_id];
 		}
 
 	});
@@ -127,6 +129,7 @@ function startGame() {
 		}, 2000);
 
 		window.addEventListener("keydown", function (e) {
+			if (killed===1) return true;
 			var prevent_default = e.keyCode >= 37 && e.keyCode <= 40;
 
 			switch (e.keyCode) {
