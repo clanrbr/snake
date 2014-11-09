@@ -81,7 +81,7 @@ window.onload = function () {
 	});
 
 	socket.on('grow', function (data) {
-		Snakes[data.snake].grow = data.value;
+		Snakes[data.snake].grow += data.value;
 	});
 
 	socket.on('death', function (socket_id) {

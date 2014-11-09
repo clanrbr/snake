@@ -7,7 +7,7 @@ var app = require('express')(),
 	rooms_actions = {'Noobs': [], 'Mellee': [], 'Deathmatch': []},
 NoobsFPS = 10,
 	MelleeFPS = 15,
-	DeatchmatchFPS = 30,
+	DeatchmatchFPS = 5,
 	sockets = {},
 	send_data = function () {
 	};
@@ -163,38 +163,63 @@ var move = function (room_name, snake, direction) {
 		room = rooms_list.filter(function (r) {
 			return r.getRoomName() === room_name;
 		})[0],
+		next_position_tail = room.check_tail(next_position.x, next_position.y),
 		next_position_free = room.check_free(next_position.x, next_position.y),
 		foods = room.foods;
 
-	if (next_position_free) {
+	if (next_position_tail && next_position_tail !== snake.id) {
 		snake.move(direction);
 
-		for (var i in foods) {
-			var food = foods[i];
-
-			if (food.x === next_position.x && food.y === next_position.y) {
-				for (var j = 0; j < food.value; j++) {
-					snake.grow(snake.snake[snake.snake.length - 1].x, snake.snake[snake.snake.length - 1].y + (direction === 'up' ? 1 : -1), true);
-				}
-
-				for (var socket_id in room.snakes_list) {
-					sockets[socket_id].emit('grow', {snake: snake.id, value: food.value});
-				}
-
-				room.foods.splice(i, 1);
-				generate_food(room);
-
-				break;
-			}
+		var l = snake.snake.length;
+		for (var j = 0; j < l; j++) {
+			snake.grow(snake.snake[snake.snake.length - 1].x, snake.snake[snake.snake.length - 1].y + (direction === 'up' ? 1 : -1), true);
 		}
-	} else {
+
+		for (var socket_id in room.snakes_list) {
+			sockets[socket_id].emit('grow', {snake: snake.id, value: l});
+		}
+
+		room.foods.splice(i, 1);
+		generate_food(room);
+
 		var snakes_list = room.snakes_list;
 
 		for (var socket_id in snakes_list) {
-			sockets[socket_id].emit('death', snake.id);
+			sockets[socket_id].emit('death', next_position_tail);
 		}
 
-		room.removeOnePlayer(snake.id);
+		room.removeOnePlayer(next_position_tail);
+	} else {
+		if (next_position_free) {
+			snake.move(direction);
+
+			for (var i in foods) {
+				var food = foods[i];
+
+				if (food.x === next_position.x && food.y === next_position.y) {
+					for (var j = 0; j < food.value; j++) {
+						snake.grow(snake.snake[snake.snake.length - 1].x, snake.snake[snake.snake.length - 1].y + (direction === 'up' ? 1 : -1), true);
+					}
+
+					for (var socket_id in room.snakes_list) {
+						sockets[socket_id].emit('grow', {snake: snake.id, value: food.value});
+					}
+
+					room.foods.splice(i, 1);
+					generate_food(room);
+
+					break;
+				}
+			}
+		} else {
+			var snakes_list = room.snakes_list;
+
+			for (var socket_id in snakes_list) {
+				sockets[socket_id].emit('death', snake.id);
+			}
+
+			room.removeOnePlayer(snake.id);
+		}
 	}
 
 	return next_position_free;
