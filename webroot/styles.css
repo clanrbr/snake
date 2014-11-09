@@ -216,12 +216,124 @@ body {
 	position: relative;
 }
 
-.sss{
+.sss_top_down_green {
 	width: 20px;
 	height: 20px;
+	position: absolute;
 	background: url('/images/snake/snake_green.png');
-	transform: scaleY(-1);
-	position: absolute; 
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    transform: rotate(180deg);
+}
+
+.sss_left_right_green {
+	width: 20px;
+	height: 20px;
+	position: absolute;
+	background: url('/images/snake/snake_green.png');
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    transform: rotate(90deg);
+}
+
+.sss_top_down_blue {
+	width: 20px;
+	height: 20px;
+	position: absolute;
+	background: url('/images/snake/snake_blue.png');
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    transform: rotate(180deg);
+}
+
+.sss_left_right_blue {
+	width: 20px;
+	height: 20px;
+	position: absolute;
+	background: url('/images/snake/snake_blue.png');
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    transform: rotate(90deg);
+}
+
+.sss_top_down_red {
+	width: 20px;
+	height: 20px;
+	position: absolute;
+	background: url('/images/snake/snake_red.png');
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    transform: rotate(180deg);
+}
+
+.sss_left_right_red {
+	width: 20px;
+	height: 20px;
+	position: absolute;
+	background: url('/images/snake/snake_red.png');
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    transform: rotate(90deg);
+}
+
+.sss_top_down_yellow {
+	width: 20px;
+	height: 20px;
+	position: absolute;
+	background: url('/images/snake/snake_yellow.png');
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    transform: rotate(180deg);
+}
+
+.sss_left_right_yellow {
+	width: 20px;
+	height: 20px;
+	position: absolute;
+	background: url('/images/snake/snake_yellow.png');
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    transform: rotate(90deg);
+}
+
+.sss_head_yellow {
+	width: 20px;
+	height: 20px;
+	position: absolute;
+	background: url('/images/snake/snake_yellow_head_02.png');
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    transform: rotate(90deg);
+}
+
+.sss_tail {
+	width: 20px;
+	height: 20px;
+	position: absolute;
+	background: url('/images/snake/snake_opashka.png');
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    transform: rotate(90deg);	
 }
 
 .food{
@@ -233,4 +345,12 @@ body {
 
 #startgame {
 	margin-left:100px;
+}
+
+.background_800_500 {
+	background: url('/images/board_background/snake_bgr_800x500px.png');
+}
+
+.background_1000_800 {
+	background: url('/images/board_background/snake_bgr_1000x800px.png');
 }
