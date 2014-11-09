@@ -380,7 +380,6 @@ body {
 	width: 20px;
 	height: 20px;
 	position: absolute;
-	background: url('/images/eats/apple.png');
 }
 
 #startgame {
@@ -406,3 +405,31 @@ body {
 #show_error {
 	display:none;
 }
+
+
+.food1 {
+	background: url('/images/eats/apple.png');
+}
+
+.food2 {
+	background: url('/images/eats/strawberry.png');
+}
+
+.food3 {
+	background: url('/images/eats/banan.png');
+}
+
+.food4 {
+	background: url('/images/eats/ananas.png');
+}
+
+.food5 {
+	background: url('/images/eats/cake.png');
+}
+
+.boom {
+	background: url('/images/eats/bomb_for_eat.png');
+}
+
+
+
