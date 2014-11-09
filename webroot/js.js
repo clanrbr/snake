@@ -27,12 +27,12 @@ window.onload = function () {
 
 	socket.on('message', function (data) {
 		if (data) {
-			document.getElementById('room_error').innerHTML=data;
+			document.getElementById('room_error').innerHTML = data;
 		}
 	});
 
 	socket.on('join_status', function (data) {
-		if (data!=1) {
+		if (data != 1) {
 			document.getElementById('show_error').style.display = "block";
 			switchScreen(1);
 		}
@@ -87,20 +87,22 @@ window.onload = function () {
 		}
 	});
 
-	socket.on('grow', function(socket_id){
-		Snakes[socket_id].grow = true;
+	socket.on('grow', function (data) {
+		Snakes[data.snake].grow += data.value;
 	});
 
 	socket.on('death', function (socket_id) {
 		console.log('death', socket_id);
 	});
 
-	socket.on('food', function (food_coordinates) {
-		if (document.getElementsByClassName('food').length) {
+	socket.on('food', function (foods) {
+		while (document.getElementsByClassName('food').length) {
 			document.getElementsByClassName('food')[0].remove();
 		}
 
-		document.getElementById('snakediv').innerHTML = document.getElementById('snakediv').innerHTML + '<div class="food" style="top: ' + food_coordinates.y * 20 + 'px; left: ' + food_coordinates.x * 20 + 'px;">&nbsp;</div>';
+		for (var i in foods) {
+			document.getElementById('snakediv').innerHTML = document.getElementById('snakediv').innerHTML + '<div class="food food' + foods[i].value + '" style="top: ' + foods[i].y * 20 + 'px; left: ' + foods[i].x * 20 + 'px;" data-value="' + foods[i].value + '">&nbsp;</div>';
+		}
 	});
 
 	window.addEventListener("keydown", function (e) {
@@ -132,13 +134,15 @@ window.onload = function () {
 function startGame() {
 	if (current_room) {
 		switchScreen(2);
-		setTimeout(function(){socket.emit('joinRoom', {room: current_room});}, 2000);
+		setTimeout(function () {
+			socket.emit('joinRoom', {room: current_room});
+		}, 2000);
 	}
 }
 
 function leaveGame() {
 	if (current_room) {
-		window.location.href=window.location.href;
+		window.location.href = window.location.href;
 	}
 }
 
@@ -156,14 +160,14 @@ function joinRoom(roomname) {
 			snakediv.style.width = room.gridx * 20 + 'px';
 			snakediv.style.height = room.gridy * 20 + 'px';
 
-			var background='background_800_500 board_screen';
-			if ( (room.gridx * 20)===1000) {
-				background='background_1000_800 board_screen';
-			} else if ( (room.gridx * 20)===1600 ) {
-				background='background_1600_800 board_screen';
+			var background = 'background_800_500 board_screen';
+			if ((room.gridx * 20) === 1000) {
+				background = 'background_1000_800 board_screen';
+			} else if ((room.gridx * 20) === 1600) {
+				background = 'background_1600_800 board_screen';
 			}
 
-			snakediv.className=background;
+			snakediv.className = background;
 		}
 	}
 }
@@ -174,13 +178,13 @@ function switchScreen(show_screen) {
 	// board_screen = document.getElementById('board_screen');
 
 	input_screen.style.display = "none";
-	leave_screen.style.display= "none";
+	leave_screen.style.display = "none";
 	// board_screen.style.display = "none";
 
 	if (show_screen === 1) {
 		input_screen.style.display = "block";
 	} else if (show_screen === 2) {
-		begin_screen.style.display= "none";
+		begin_screen.style.display = "none";
 		leave_screen.style.display = "block";
 	}
 }

@@ -387,6 +387,10 @@ body {
 	margin-left:100px;
 }
 
+#leavegame {
+	margin-left:615px;
+} 
+
 .background_800_500 {
 	background: url('/images/board_background/snake_bgr_800x500px.png');
 }

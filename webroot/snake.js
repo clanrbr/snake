@@ -4,7 +4,7 @@ function Snake() {
 	this.box_side = 20;
 	this.snake = [];
 	this.current_direction = null;
-	this.grow = false;
+	this.grow = 0;
 	this.last_direction = null;
 	this.color=null;
 	this.init = function () {
@@ -18,8 +18,8 @@ function Snake() {
 		}
 
 		// directionstyle='sss_head_yellow';
-		this.box.innerHTML = this.box.innerHTML + '<div class="'+directionstyle +' '+ this.id + '" style="top: ' + y * this.box_side + 'px; left: ' + x * this.box_side + 
-		'px;">&nbsp;</div>';
+		this.box.innerHTML = this.box.innerHTML + '<div class="' + directionstyle + ' ' + this.id + '" style="top: ' + y * this.box_side + 'px; left: ' + x * this.box_side +
+			'px;">&nbsp;</div>';
 
 		if (tail) {
 			this.snake.push({x: x, y: y});
@@ -34,14 +34,14 @@ function Snake() {
 		}
 
 		if (head) {
-			if (element>0) {
-				document.getElementsByClassName(this.id)[element-1].className = directionstyle+' '+this.id;	
+			if (element > 0) {
+				document.getElementsByClassName(this.id)[element - 1].className = directionstyle + ' ' + this.id;
 			} else {
-				document.getElementsByClassName(this.id)[1].className = directionstyle+' '+this.id;
+				document.getElementsByClassName(this.id)[1].className = directionstyle + ' ' + this.id;
 			}
 			directionstyle='sss_head_'+this.color;
 		}
-		document.getElementsByClassName(this.id)[element].className = directionstyle+' '+this.id;
+		document.getElementsByClassName(this.id)[element].className = directionstyle + ' ' + this.id;
 	};
 	this.remove_pixel = function () {
 		this.box.removeChild(this.box.getElementsByClassName(this.id)[0]);
@@ -96,13 +96,13 @@ function Snake() {
 	};
 	this.move_tail = function () {
 		if (this.grow) {
-			this.grow = false;
+			this.grow--;
 		} else {
 			this.remove_pixel();
 		}
 	};
 	this.set_current_direction = function () {
-		this.last_direction=this.current_direction;
+		this.last_direction = this.current_direction;
 		var snake_element0 = this.snake[0],
 			snake_element1 = this.snake[1];
 
