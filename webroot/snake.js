@@ -41,6 +41,13 @@ function Snake() {
 			}
 			directionstyle='sss_head_'+this.color;
 		}
+
+		if (element>0) {
+			document.getElementsByClassName(this.id)[0].className = 'sss_tail ' + this.id;
+		} else {
+			document.getElementsByClassName(this.id)[this.snake.length-1].className = 'sss_tail ' + this.id;
+		}
+
 		document.getElementsByClassName(this.id)[element].className = directionstyle + ' ' + this.id;
 	};
 	this.remove_pixel = function () {
