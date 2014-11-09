@@ -20,13 +20,13 @@ var Snake = function () {
 			if (from.y <= to.y) {
 				for (var x = from.x; x <= to.x; x++) {
 					for (var y = from.y; y <= to.y; y++) {
-						this.grow(x, y);
+						this.grow(x, y, true);
 					}
 				}
 			} else {
 				for (var x = from.x; x <= to.x; x++) {
 					for (var y = from.y; y >= to.y; y--) {
-						this.grow(x, y);
+						this.grow(x, y, true);
 					}
 				}
 			}
@@ -34,13 +34,13 @@ var Snake = function () {
 			if (from.y <= to.y) {
 				for (var x = from.x; x >= to.x; x--) {
 					for (var y = from.y; y <= to.y; y++) {
-						this.grow(x, y);
+						this.grow(x, y, true);
 					}
 				}
 			} else {
 				for (var x = from.x; x >= to.x; x--) {
 					for (var y = from.y; y >= to.y; y--) {
-						this.grow(x, y);
+						this.grow(x, y, true);
 					}
 				}
 			}

@@ -6,17 +6,17 @@ function Snake() {
 	this.current_direction = null;
 	this.grow = 0;
 	this.last_direction = null;
-	this.color=null;
-	this.lastcorection=[];
-	this.tailclass=null;
+	this.color = null;
+	this.lastcorection = [];
+	this.tailclass = null;
 	this.init = function () {
 		this.box = document.getElementById('snakediv');
 	};
 	this.generate_pixel = function (x, y, tail) {
-		var directionstyle="sss_left_right_"+this.color;
+		var directionstyle = "sss_left_right_" + this.color;
 
-		if (this.current_direction==='up' || this.current_direction==='down') {
-			directionstyle="sss_top_down_"+this.color;
+		if (this.current_direction === 'up' || this.current_direction === 'down') {
+			directionstyle = "sss_top_down_" + this.color;
 		}
 
 		// directionstyle='sss_head_yellow';
@@ -29,10 +29,10 @@ function Snake() {
 			this.snake.unshift({x: x, y: y});
 		}
 	};
-	this.rotateSnake = function (element,head) {
-		var directionstyle="sss_left_right_"+this.color;
-		if (this.current_direction==='up' || this.current_direction==='down') {
-			directionstyle="sss_top_down_"+this.color;
+	this.rotateSnake = function (element, head) {
+		var directionstyle = "sss_left_right_" + this.color;
+		if (this.current_direction === 'up' || this.current_direction === 'down') {
+			directionstyle = "sss_top_down_" + this.color;
 		}
 
 		if (head) {
@@ -41,40 +41,40 @@ function Snake() {
 			} else {
 				document.getElementsByClassName(this.id)[1].className = directionstyle + ' ' + this.id;
 			}
-			directionstyle='sss_head_'+this.color;
+			directionstyle = 'sss_head_' + this.color;
 		}
 
-		if (element>0) {
-			document.getElementsByClassName(this.id)[0].className = this.tailclass+' ' + this.id;
+		if (element > 0) {
+			document.getElementsByClassName(this.id)[0].className = this.tailclass + ' ' + this.id;
 		} else {
-			document.getElementsByClassName(this.id)[this.snake.length-1].className = this.tailclass+ ' ' + this.id;
+			document.getElementsByClassName(this.id)[this.snake.length - 1].className = this.tailclass + ' ' + this.id;
 		}
 
 		document.getElementsByClassName(this.id)[element].className = directionstyle + ' ' + this.id;
 	};
-	this.rotateTail = function() {
-		if ( this.lastcorection.length>0 ) {
-			if ( (this.snake[this.snake.length-1].x===this.lastcorection[0][0]) && (this.snake[this.snake.length-1].y===this.lastcorection[0][1]) ) {
+	this.rotateTail = function () {
+		if (this.lastcorection.length > 0) {
+			if ((this.snake[this.snake.length - 1].x === this.lastcorection[0][0]) && (this.snake[this.snake.length - 1].y === this.lastcorection[0][1])) {
 				this.lastcorection.pop();
 
-				this.tailclass='sss_tail_left';
-				if (this.current_direction==='up') {
-					this.tailclass='sss_tail_up';
-				} else if (this.current_direction==='down') {
-					this.tailclass='sss_tail_down';
-				} else if (this.current_direction==='right') {
-					this.tailclass='sss_tail_right';
+				this.tailclass = 'sss_tail_left';
+				if (this.current_direction === 'up') {
+					this.tailclass = 'sss_tail_up';
+				} else if (this.current_direction === 'down') {
+					this.tailclass = 'sss_tail_down';
+				} else if (this.current_direction === 'right') {
+					this.tailclass = 'sss_tail_right';
 				}
-				document.getElementsByClassName(this.id)[0].className = this.tailclass+' ' + this.id;
-			} 
+				document.getElementsByClassName(this.id)[0].className = this.tailclass + ' ' + this.id;
+			}
 		} else {
-			this.tailclass='sss_tail_left';
-			if (this.current_direction==='up') {
-				this.tailclass='sss_tail_up';
-			} else if (this.current_direction==='down') {
-				this.tailclass='sss_tail_down';
-			} else if (this.current_direction==='right') {
-				this.tailclass='sss_tail_right';
+			this.tailclass = 'sss_tail_left';
+			if (this.current_direction === 'up') {
+				this.tailclass = 'sss_tail_up';
+			} else if (this.current_direction === 'down') {
+				this.tailclass = 'sss_tail_down';
+			} else if (this.current_direction === 'right') {
+				this.tailclass = 'sss_tail_right';
 			}
 		}
 	};
@@ -88,13 +88,13 @@ function Snake() {
 			if (from.y <= to.y) {
 				for (var x = from.x; x <= to.x; x++) {
 					for (var y = from.y; y <= to.y; y++) {
-						this.generate_pixel(x, y, false);
+						this.generate_pixel(x, y, true);
 					}
 				}
 			} else {
 				for (var x = from.x; x <= to.x; x++) {
 					for (var y = from.y; y >= to.y; y--) {
-						this.generate_pixel(x, y, false);
+						this.generate_pixel(x, y, true);
 					}
 				}
 			}
@@ -102,19 +102,29 @@ function Snake() {
 			if (from.y <= to.y) {
 				for (var x = from.x; x >= to.x; x--) {
 					for (var y = from.y; y <= to.y; y++) {
-						this.generate_pixel(x, y, false);
+						this.generate_pixel(x, y, true);
 					}
 				}
 			} else {
 				for (var x = from.x; x >= to.x; x--) {
 					for (var y = from.y; y >= to.y; y--) {
-						this.generate_pixel(x, y, false);
+						this.generate_pixel(x, y, true);
 					}
 				}
 			}
 		}
 
 		this.set_current_direction();
+
+		this.rotateSnake(0);
+	};
+	this.generate_whole_snake = function (snake) {
+		for (var i = snake.length - 1; i >= 0; i--) {
+			this.generate_pixel(snake[i].x, snake[i].y, false);
+		}
+
+		this.set_current_direction();
+
 		this.rotateSnake(0);
 	};
 	this.move = function (direction) {
@@ -142,7 +152,7 @@ function Snake() {
 		}
 
 		this.set_current_direction();
-		this.rotateSnake(this.snake.length-1,1);
+		this.rotateSnake(this.snake.length - 1, 1);
 
 	};
 	this.move_head = function (x, y) {
@@ -178,10 +188,8 @@ function Snake() {
 		}
 
 
-		if ( (this.last_direction!=null) && (this.last_direction!=this.current_direction) )
-				this.lastcorection.push([snake_element0.x,snake_element0.y]);
-
-		// console.log(this.lastcorection);
+		if ((this.last_direction != null) && (this.last_direction != this.current_direction))
+			this.lastcorection.push([snake_element0.x, snake_element0.y]);
 	};
 	this.get_opposite_direction = function () {
 		var opposite_direction = null;

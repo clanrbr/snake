@@ -58,15 +58,15 @@ var Board = function () {
 
 		var head = heads[0],
 			r = matrix[head.x + (length - 1)][head.y] || {hot_tail: -1},
-			l = matrix[head.x - (length - 1)][head.y] || {hot_tail: -1},
-			u = matrix[head.x][head.y - (length - 1)] || {hot_tail: -1},
-			d = matrix[head.x][head.y + (length - 1)] || {hot_tail: -1},
-			tail_min = Number.MAX_VALUE,
+		l = matrix[head.x - (length - 1)][head.y] || {hot_tail: -1},
+		u = matrix[head.x][head.y - (length - 1)] || {hot_tail: -1},
+		d = matrix[head.x][head.y + (length - 1)] || {hot_tail: -1},
+		tail_min = Number.MAX_VALUE,
 			a = {l: l, r: r, u: u, d: d},
 		w = 'r';
 
 		for (var i in a) {
-			if(a[i].hot_tail === -1){
+			if (a[i].hot_tail === -1) {
 				continue;
 			}
 
@@ -78,7 +78,7 @@ var Board = function () {
 		}
 
 		var tail;
-		switch(w){
+		switch (w) {
 			case 'r':
 				tail = {x: 1, y: 0};
 				break;

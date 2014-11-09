@@ -34,8 +34,15 @@ function Room(data) {
 		this.snakes_list[player].generate_snake(coordinates.from, coordinates.to);
 	};
 	this.removeOnePlayer = function (player) {
-		this.players_list.splice(this.players_list.indexOf(player), 1);
-		delete this.snakes_list[player];
+		var index = this.players_list.indexOf(player);
+
+		if (index > -1) {
+			this.players_list.splice(this.players_list.indexOf(player), 1);
+		}
+
+		if (this.snakes_list[player]) {
+			delete this.snakes_list[player];
+		}
 	};
 	this.isFull = function () {
 		return this.getNumberOfPlayers() >= this.total_players;
@@ -83,6 +90,7 @@ function Room(data) {
 
 		return {x: x, y: y, value: value};
 	};
+
 }
 
 module.exports = {Room: Room};

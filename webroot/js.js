@@ -1,9 +1,9 @@
-var io_address = 'http://localhost:3000',
+var io_address = 'http://192.168.0.101:3000',
 	socket = io.connect(io_address),
 	Snakes = {},
 	statistics = [],
 	current_room = '';
-	killed=null;
+killed = null;
 
 
 // io_address = 'http://192.168.0.101:3000',
@@ -14,8 +14,10 @@ window.onload = function () {
 		var timestamp = +new Date();
 
 		for (var i in data) {
-			Snakes[data[i].socket_id].move(data[i].direction);
-			Snakes[data[i].socket_id].timestamp = timestamp;
+			if (Snakes[data[i].socket_id]){
+				Snakes[data[i].socket_id].move(data[i].direction);
+				Snakes[data[i].socket_id].timestamp = timestamp;
+			}
 		}
 
 		for (var i in Snakes) {
@@ -33,6 +35,7 @@ window.onload = function () {
 	});
 
 	socket.on('join_status', function (data) {
+		console.log('join_status', data);
 		if (data != 1) {
 			document.getElementById('show_error').style.display = "block";
 			switchScreen(1);
@@ -69,9 +72,10 @@ window.onload = function () {
 	});
 
 	socket.on('coordinates', function (data) {
-		var colors=['yellow','red','blue','green','yellow'];
+		console.log('coordinates', data);
+		var colors = ['yellow', 'red', 'blue', 'green', 'yellow'];
 
-		var current_player=0;
+		var current_player = 0;
 		for (var i in data) {
 			if (Snakes[data[i].socket_id]) {
 				current_player++;
@@ -80,8 +84,8 @@ window.onload = function () {
 			Snakes[data[i].socket_id] = new Snake();
 			Snakes[data[i].socket_id].init();
 			Snakes[data[i].socket_id].id = data[i].socket_id;
-			Snakes[data[i].socket_id].color=colors[current_player];
-			Snakes[data[i].socket_id].generate_snake(data[i].snake[data[i].snake.length - 1], data[i].snake[0]);
+			Snakes[data[i].socket_id].color = colors[current_player];
+			Snakes[data[i].socket_id].generate_whole_snake(data[i].snake);
 			current_player++;
 		}
 	});
@@ -90,21 +94,23 @@ window.onload = function () {
 		Snakes[data.snake].grow += data.value;
 	});
 
-	
+
 	socket.on('death', function (socket_id) {
-		if (socket.io.engine.id===socket_id) {
-			killed=1;
+		console.log('death', socket_id, socket);
+		if (socket.io.engine.id === socket_id) {
+			killed = 1;
 			document.getElementById('snakediv').style.display = "none";
-			document.getElementById('death_screen').style.display = "block";	
-			document.getElementById('stats').style.display="block";
+			document.getElementById('death_screen').style.display = "block";
+			document.getElementById('stats').style.display = "block";
 		}
-		if (Snakes[socket_id].snake.length>0) {
-			document.getElementById('stats').innerHTML='You scrored: '+ (Snakes[socket_id].snake.length-4) + ' points.';
+		if (Snakes[socket_id].snake.length > 0) {
+			document.getElementById('stats').innerHTML = 'You scrored: ' + (Snakes[socket_id].snake.length - 4) + ' points.';
 			for (var i in Snakes[socket_id].snake) {
 				var paras = document.getElementsByClassName(socket_id);
 				while (document.getElementsByClassName(socket_id).length) {
-				    document.getElementsByClassName(socket_id)[0].parentNode.removeChild(document.getElementsByClassName(socket_id)[0]);
-				};
+					document.getElementsByClassName(socket_id)[0].parentNode.removeChild(document.getElementsByClassName(socket_id)[0]);
+				}
+				;
 			}
 			delete Snakes[socket_id];
 		}
@@ -125,25 +131,34 @@ function startGame() {
 	if (current_room) {
 		switchScreen(2);
 		// setTimeout(function () {
-			socket.emit('joinRoom', {room: current_room});
-			
+		socket.emit('joinRoom', {room: current_room});
+
 		// }, 2000);
 
 		window.addEventListener("keydown", function (e) {
-			if (killed===1) return true;
+			if (killed === 1)
+				return true;
 			var prevent_default = e.keyCode >= 37 && e.keyCode <= 40;
 
 			switch (e.keyCode) {
-				case 37: case 65: case 100:
+				case 37:
+				case 65:
+				case 100:
 					socket.emit('move', 'left');
 					break;
-				case 38: case 87: case 104:
+				case 38:
+				case 87:
+				case 104:
 					socket.emit('move', 'up');
 					break;
-				case 39: case 68: case 102:
+				case 39:
+				case 68:
+				case 102:
 					socket.emit('move', 'right');
 					break;
-				case 40: case 83: case 98:
+				case 40:
+				case 83:
+				case 98:
 					socket.emit('move', 'down');
 					break;
 			}

@@ -5,15 +5,12 @@ var app = require('express')(),
 	Room = require('./room.js'),
 	rooms_list = new Array(),
 	rooms_actions = {'Noobs': [], 'Mellee': [], 'Deathmatch': []},
-NoobsFPS = 10,
-	MelleeFPS = 15,
-	DeatchmatchFPS = 30,
+NoobsFPS = 8,
+	MelleeFPS = 14,
+	DeatchmatchFPS = 11,
 	sockets = {},
 	send_data = function () {
 	};
-
-
-// NoobsFPS = 10,	};
 
 server.listen(port);
 console.log('Listening on port ' + port);
@@ -21,7 +18,7 @@ console.log('Listening on port ' + port);
 // For testing purposes
 rooms_list.push(new Room.Room({name: 'Noobs', total_players: 5, gridx: 40, gridy: 25, description: 'This is the default version.', max_food: 1}));
 rooms_list.push(new Room.Room({name: 'Mellee', total_players: 5, gridx: 50, gridy: 40, description: 'Every brick gives you superpowers', max_food: 3}));
-rooms_list.push(new Room.Room({name: 'Deathmatch', total_players: 5, gridx: 80, gridy: 40, description: 'Eat everybody\'s tail.', max_food: 5}));
+rooms_list.push(new Room.Room({name: 'Deathmatch', total_players: 10, gridx: 80, gridy: 40, description: 'Eat everybody\'s tail.', max_food: 5}));
 
 // GET static content
 app.get('/*', function (req, res) {
@@ -222,6 +219,7 @@ var move = function (room_name, snake, direction) {
 			var snakes_list = room.snakes_list;
 
 			for (var socket_id in snakes_list) {
+				sockets[socket_id].emit('message', [snake, direction, next_position, room]);
 				sockets[socket_id].emit('death', snake.id);
 			}
 
@@ -234,8 +232,7 @@ var move = function (room_name, snake, direction) {
 
 var emit_positions = function (room) {
 	var room_name = room.getRoomName(),
-		used_sockets = {},
-		move_result = false;
+		used_sockets = {};
 
 	rooms_actions[room_name].forEach(function (a, i) {
 		move(room_name, room.snakes_list[a.socket_id], a.direction);
