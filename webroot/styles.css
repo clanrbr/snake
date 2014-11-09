@@ -244,6 +244,18 @@ body {
     transform: rotate(90deg);
 }
 
+.sss_head_green {
+	width: 20px;
+	height: 20px;
+	position: absolute;
+	background: url('/images/snake/snake_green_head_02.png');
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    transform: rotate(90deg);
+}
+
 .sss_top_down_blue {
 	width: 20px;
 	height: 20px;
@@ -268,6 +280,18 @@ body {
     transform: rotate(90deg);
 }
 
+.sss_head_blue {
+	width: 20px;
+	height: 20px;
+	position: absolute;
+	background: url('/images/snake/snake_blue_head_02.png');
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    transform: rotate(90deg);
+}
+
 .sss_top_down_red {
 	width: 20px;
 	height: 20px;
@@ -285,6 +309,18 @@ body {
 	height: 20px;
 	position: absolute;
 	background: url('/images/snake/snake_red.png');
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    transform: rotate(90deg);
+}
+
+.sss_head_red {
+	width: 20px;
+	height: 20px;
+	position: absolute;
+	background: url('/images/snake/snake_red_head_01.png');
     -webkit-transform: rotate(90deg);
     -moz-transform: rotate(90deg);
     -ms-transform: rotate(90deg);

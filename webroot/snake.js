@@ -6,14 +6,15 @@ function Snake() {
 	this.current_direction = null;
 	this.grow = false;
 	this.last_direction = null;
+	this.color=null;
 	this.init = function () {
 		this.box = document.getElementById('snakediv');
 	};
 	this.generate_pixel = function (x, y, tail) {
-		var directionstyle="sss_left_right_yellow";
+		var directionstyle="sss_left_right_"+this.color;
 
 		if (this.current_direction==='up' || this.current_direction==='down') {
-			directionstyle="sss_top_down_yellow";
+			directionstyle="sss_top_down_"+this.color;
 		}
 
 		// directionstyle='sss_head_yellow';
@@ -26,10 +27,10 @@ function Snake() {
 			this.snake.unshift({x: x, y: y});
 		}
 	};
-	this.rotateSnake = function (element,color,head) {
-		var directionstyle="sss_left_right_"+color;
+	this.rotateSnake = function (element,head) {
+		var directionstyle="sss_left_right_"+this.color;
 		if (this.current_direction==='up' || this.current_direction==='down') {
-			directionstyle="sss_top_down_"+color;
+			directionstyle="sss_top_down_"+this.color;
 		}
 
 		if (head) {
@@ -38,7 +39,7 @@ function Snake() {
 			} else {
 				document.getElementsByClassName(this.id)[1].className = directionstyle+' '+this.id;
 			}
-			directionstyle='sss_head_'+color;
+			directionstyle='sss_head_'+this.color;
 		}
 		document.getElementsByClassName(this.id)[element].className = directionstyle+' '+this.id;
 	};
@@ -54,7 +55,7 @@ function Snake() {
 		}
 
 		this.set_current_direction();
-		this.rotateSnake(0,'yellow');
+		this.rotateSnake(0);
 	};
 	this.move = function (direction) {
 		if (direction === this.get_opposite_direction()) {
@@ -81,7 +82,7 @@ function Snake() {
 		}
 
 		this.set_current_direction();
-		this.rotateSnake(this.snake.length-1,'yellow',1);
+		this.rotateSnake(this.snake.length-1,1);
 
 	};
 	this.move_head = function (x, y) {
