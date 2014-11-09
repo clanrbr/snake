@@ -16,9 +16,11 @@ function Snake() {
 			directionstyle="sss_top_down_yellow";
 		}
 
+		// directionstyle='sss_head_yellow';
 		this.box.innerHTML = this.box.innerHTML + '<div class="'+directionstyle +' '+ this.id + '" style="top: ' + y * this.box_side + 'px; left: ' + x * this.box_side + 
-		'px;"><img style="image_style_left" src="/images/snake/snake_green.png"</div>';
+		'px;">&nbsp;</div>';
 
+		// <img style="image_style_left" src="/images/snake/snake_green.png">
 		console.log(x,y);
 		if (tail) {
 			this.snake.push({x: x, y: y});
@@ -26,10 +28,19 @@ function Snake() {
 			this.snake.unshift({x: x, y: y});
 		}
 	};
-	this.rotateSnake = function (element,color) {
-		var directionstyle="sss_left_right_yellow";
+	this.rotateSnake = function (element,color,head) {
+		var directionstyle="sss_left_right_"+color;
 		if (this.current_direction==='up' || this.current_direction==='down') {
-			directionstyle="sss_top_down_yellow";
+			directionstyle="sss_top_down_"+color;
+		}
+
+		if (head) {
+			if (element>0) {
+				document.getElementsByClassName(this.id)[element-1].className = directionstyle+' '+this.id;	
+			} else {
+				document.getElementsByClassName(this.id)[1].className = directionstyle+' '+this.id;
+			}
+			directionstyle='sss_head_'+color;
 		}
 		document.getElementsByClassName(this.id)[element].className = directionstyle+' '+this.id;
 	};
@@ -76,7 +87,7 @@ function Snake() {
 		}
 
 		this.set_current_direction();
-		this.rotateSnake(this.snake.length-1,'yellow');
+		this.rotateSnake(this.snake.length-1,'yellow',1);
 
 	};
 	this.move_head = function (x, y) {

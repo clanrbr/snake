@@ -316,7 +316,7 @@ body {
 	width: 20px;
 	height: 20px;
 	position: absolute;
-	background: url('/images/snake/snake_red_head_01.png');
+	background: url('/images/snake/snake_yellow_head_02.png');
     -webkit-transform: rotate(90deg);
     -moz-transform: rotate(90deg);
     -ms-transform: rotate(90deg);
@@ -348,5 +348,5 @@ body {
 }
 
 .background_800_500 {
-	background: url('/images/board_background/snake_bgr_800x500px2.png');
+	background: url('/images/board_background/snake_bgr_800x500px.png');
 }
