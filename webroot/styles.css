@@ -484,6 +484,9 @@ body {
 
 #stats {
 	display:none;
+	padding-top:20px;
+	color:#fff;
+	font-size:30px;
 }
 
 

@@ -99,12 +99,11 @@ window.onload = function () {
 			document.getElementById('stats').style.display="block";
 		}
 		if (Snakes[socket_id].snake.length>0) {
-			document.getElementById('stats').innerHTML=Snakes[socket_id].snake.length-4;
+			document.getElementById('stats').innerHTML='You scrored: '+ (Snakes[socket_id].snake.length-4) + ' points.';
 			for (var i in Snakes[socket_id].snake) {
 				var paras = document.getElementsByClassName(socket_id);
 				while (document.getElementsByClassName(socket_id).length) {
 				    document.getElementsByClassName(socket_id)[0].parentNode.removeChild(document.getElementsByClassName(socket_id)[0]);
-				    console.log(document.getElementsByClassName(socket_id).length);
 				};
 			}
 			delete Snakes[socket_id];
@@ -125,10 +124,10 @@ window.onload = function () {
 function startGame() {
 	if (current_room) {
 		switchScreen(2);
-		setTimeout(function () {
+		// setTimeout(function () {
 			socket.emit('joinRoom', {room: current_room});
 			
-		}, 2000);
+		// }, 2000);
 
 		window.addEventListener("keydown", function (e) {
 			if (killed===1) return true;
@@ -202,7 +201,8 @@ function switchScreen(show_screen) {
 	if (show_screen === 1) {
 		input_screen.style.display = "block";
 	} else if (show_screen === 2) {
-		begin_screen.style.display = "none";
+		begin_screen.style.visibility = "hidden";
+		// begin_screen.style.display = "none";
 		leave_screen.style.display = "block";
 	}
 }
