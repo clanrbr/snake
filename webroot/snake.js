@@ -84,9 +84,33 @@ function Snake() {
 		this.snake.pop();
 	};
 	this.generate_snake = function (from, to) {
-		for (var x = from.x; x <= to.x; x++) {
-			for (var y = from.y; y <= to.y; y++) {
-				this.generate_pixel(x, y, false);
+		if (from.x <= to.x) {
+			if (from.y <= to.y) {
+				for (var x = from.x; x <= to.x; x++) {
+					for (var y = from.y; y <= to.y; y++) {
+						this.generate_pixel(x, y, false);
+					}
+				}
+			} else {
+				for (var x = from.x; x <= to.x; x++) {
+					for (var y = from.y; y >= to.y; y--) {
+						this.generate_pixel(x, y, false);
+					}
+				}
+			}
+		} else {
+			if (from.y <= to.y) {
+				for (var x = from.x; x >= to.x; x--) {
+					for (var y = from.y; y <= to.y; y++) {
+						this.generate_pixel(x, y, false);
+					}
+				}
+			} else {
+				for (var x = from.x; x >= to.x; x--) {
+					for (var y = from.y; y >= to.y; y--) {
+						this.generate_pixel(x, y, false);
+					}
+				}
 			}
 		}
 
