@@ -1,9 +1,11 @@
-var io_address = 'http://localhost:3000',
+var io_address = 'http://192.168.0.101:3000',
 	socket = io.connect(io_address),
 	Snakes = {},
 	statistics = [],
 	current_room = '';
 
+
+// io_address = 'http://localhost:3000',
 window.onload = function () {
 	socket.emit('rooms_statistics');
 
@@ -138,7 +140,7 @@ function joinRoom(roomname) {
 			if ( (room.gridx * 20)===1000) {
 				background='background_1000_800 board_screen';
 			} else if ( (room.gridx * 20)===1600 ) {
-
+				background='background_1600_800 board_screen';
 			}
 
 			snakediv.className=background;
