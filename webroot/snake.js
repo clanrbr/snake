@@ -7,6 +7,8 @@ function Snake() {
 	this.grow = 0;
 	this.last_direction = null;
 	this.color=null;
+	this.lastcorection=[];
+	this.tailclass=null;
 	this.init = function () {
 		this.box = document.getElementById('snakediv');
 	};
@@ -43,15 +45,42 @@ function Snake() {
 		}
 
 		if (element>0) {
-			document.getElementsByClassName(this.id)[0].className = 'sss_tail ' + this.id;
+			document.getElementsByClassName(this.id)[0].className = this.tailclass+' ' + this.id;
 		} else {
-			document.getElementsByClassName(this.id)[this.snake.length-1].className = 'sss_tail ' + this.id;
+			document.getElementsByClassName(this.id)[this.snake.length-1].className = this.tailclass+ ' ' + this.id;
 		}
 
 		document.getElementsByClassName(this.id)[element].className = directionstyle + ' ' + this.id;
 	};
+	this.rotateTail = function() {
+		if ( this.lastcorection.length>0 ) {
+			if ( (this.snake[this.snake.length-1].x===this.lastcorection[0][0]) && (this.snake[this.snake.length-1].y===this.lastcorection[0][1]) ) {
+				this.lastcorection.pop();
+
+				this.tailclass='sss_tail_left';
+				if (this.current_direction==='up') {
+					this.tailclass='sss_tail_up';
+				} else if (this.current_direction==='down') {
+					this.tailclass='sss_tail_down';
+				} else if (this.current_direction==='right') {
+					this.tailclass='sss_tail_right';
+				}
+				document.getElementsByClassName(this.id)[0].className = this.tailclass+' ' + this.id;
+			} 
+		} else {
+			this.tailclass='sss_tail_left';
+			if (this.current_direction==='up') {
+				this.tailclass='sss_tail_up';
+			} else if (this.current_direction==='down') {
+				this.tailclass='sss_tail_down';
+			} else if (this.current_direction==='right') {
+				this.tailclass='sss_tail_right';
+			}
+		}
+	};
 	this.remove_pixel = function () {
 		this.box.removeChild(this.box.getElementsByClassName(this.id)[0]);
+		this.rotateTail();
 		this.snake.pop();
 	};
 	this.generate_snake = function (from, to) {
@@ -104,6 +133,7 @@ function Snake() {
 	this.move_tail = function () {
 		if (this.grow) {
 			this.grow--;
+			this.rotateTail();
 		} else {
 			this.remove_pixel();
 		}
@@ -122,6 +152,12 @@ function Snake() {
 		} else if (snake_element0.y > snake_element1.y) {
 			this.current_direction = 'down';
 		}
+
+
+		if ( (this.last_direction!=null) && (this.last_direction!=this.current_direction) )
+				this.lastcorection.push([snake_element0.x,snake_element0.y]);
+
+		console.log(this.lastcorection);
 	};
 	this.get_opposite_direction = function () {
 		var opposite_direction = null;
