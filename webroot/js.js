@@ -26,11 +26,17 @@ window.onload = function () {
 	});
 
 	socket.on('message', function (data) {
-		console.log(data);
+		if (data) {
+			document.getElementById('room_error').innerHTML=data;
+		}
 	});
 
 	socket.on('join_status', function (data) {
-		console.log(data);
+		if (data!=1) {
+			document.getElementById('show_error').style.display = "block";
+			switchScreen(1);
+		}
+
 	});
 
 	socket.on('leave_status', function (data) {
@@ -118,8 +124,8 @@ window.onload = function () {
 
 function startGame() {
 	if (current_room) {
-		socket.emit('joinRoom', {room: current_room});
 		switchScreen(2);
+		setTimeout(function(){socket.emit('joinRoom', {room: current_room});}, 2000);
 	}
 }
 
@@ -167,6 +173,7 @@ function switchScreen(show_screen) {
 	if (show_screen === 1) {
 		input_screen.style.display = "block";
 	} else if (show_screen === 2) {
+		begin_screen.style.display= "none";
 		leave_screen.style.display = "block";
 	}
 }

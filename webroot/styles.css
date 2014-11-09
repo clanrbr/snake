@@ -362,3 +362,7 @@ body {
 .background_1600_800 {
 	background: url('/images/board_background/snake_bgr_1600x800_clean.png');
 }
+
+#show_error {
+	display:none;
+}
