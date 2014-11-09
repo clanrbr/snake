@@ -26,6 +26,13 @@ function Snake() {
 			this.snake.unshift({x: x, y: y});
 		}
 	};
+	this.rotateSnake = function (element,color) {
+		var directionstyle="sss_left_right_yellow";
+		if (this.current_direction==='up' || this.current_direction==='down') {
+			directionstyle="sss_top_down_yellow";
+		}
+		document.getElementsByClassName(this.id)[element].className = directionstyle+' '+this.id;
+	};
 	this.remove_pixel = function () {
 //		if (Math.random() < 0.9) {
 			this.box.removeChild(this.box.getElementsByClassName(this.id)[0]);
@@ -42,12 +49,7 @@ function Snake() {
 		}
 
 		this.set_current_direction();
-
-		var directionstyle="sss_left_right_yellow";
-		if (this.current_direction==='up' || this.current_direction==='down') {
-			directionstyle="sss_top_down_yellow";
-		}
-		document.getElementsByClassName(this.id)[0].className = directionstyle+' '+this.id;
+		this.rotateSnake(0,'yellow');
 	};
 	this.move = function (direction) {
 		if (direction === this.get_opposite_direction()) {
@@ -74,13 +76,7 @@ function Snake() {
 		}
 
 		this.set_current_direction();
-		var directionstyle="sss_left_right_yellow";
-		if (this.current_direction==='up' || this.current_direction==='down') {
-			directionstyle="sss_top_down_yellow";
-		}
-
-		console.log(this.current_direction,directionstyle,this.id);
-		document.getElementsByClassName(this.id)[this.snake.length-1].className = directionstyle+' '+this.id;
+		this.rotateSnake(this.snake.length-1,'yellow');
 
 	};
 	this.move_head = function (x, y) {
