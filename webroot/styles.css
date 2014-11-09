@@ -350,3 +350,7 @@ body {
 .background_800_500 {
 	background: url('/images/board_background/snake_bgr_800x500px.png');
 }
+
+.background_1000_800 {
+	background: url('/images/board_background/snake_bgr_1000x800px.png');
+}

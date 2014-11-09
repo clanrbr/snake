@@ -127,7 +127,15 @@ function joinRoom(roomname) {
 			snakediv.style.display = "block";
 			snakediv.style.width = room.gridx * 20 + 'px';
 			snakediv.style.height = room.gridy * 20 + 'px';
-			snakediv.className='background_800_500 board_screen';
+
+			var background='background_800_500 board_screen';
+			if ( (room.gridx * 20)===1000) {
+				background='background_1000_800 board_screen';
+			} else if ( (room.gridx * 20)===1600 ) {
+
+			}
+
+			snakediv.className=background;
 		}
 	}
 }
