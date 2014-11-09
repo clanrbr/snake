@@ -364,7 +364,7 @@ body {
     transform: rotate(90deg);
 }
 
-.sss_tail {
+.sss_tail_left {
 	width: 20px;
 	height: 20px;
 	position: absolute;
@@ -374,6 +374,37 @@ body {
     -ms-transform: rotate(90deg);
     -o-transform: rotate(90deg);
     transform: rotate(90deg);	
+}
+
+.sss_tail_right{
+	width: 20px;
+	height: 20px;
+	position: absolute;
+	background: url('/images/snake/snake_opashka.png');
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    transform: rotate(90deg);	
+}
+
+.sss_tail_up {
+	width: 20px;
+	height: 20px;
+	position: absolute;
+	background: url('/images/snake/snake_opashka.png');	
+}
+
+.sss_tail_down {
+	width: 20px;
+	height: 20px;
+	position: absolute;
+	background: url('/images/snake/snake_opashka.png');
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    transform: rotate(180deg);	
 }
 
 .food{
