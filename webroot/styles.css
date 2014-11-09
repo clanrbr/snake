@@ -8,7 +8,7 @@ body {
 
 #menu_text {
 	position:relative;
-	left:380px;
+	left:280px;
 }
 
 #container {
@@ -66,6 +66,14 @@ body {
 
 #actualMenu li.active a {
 	color:#c5db3b;
+}
+
+#actualMenu li a:hover {
+	color:#c5db3b;
+}
+
+#facebook {
+	float:right;
 }
 
 .cta_text {
@@ -439,6 +447,14 @@ body {
 
 #show_error {
 	display:none;
+}
+
+#playtext {
+	margin-left:300px;
+}
+
+#playtext1 {
+	margin-left:355px;
 }
 
 
