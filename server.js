@@ -5,12 +5,14 @@ var app = require('express')(),
 	Room = require('./room.js'),
 	rooms_list = new Array(),
 	rooms_actions = {'Noobs': [], 'Mellee': [], 'Deathmatch': []},
-NoobsFPS = 10,
+NoobsFPS = 0.1,
 	MelleeFPS = 15,
 	DeatchmatchFPS = 5,
 	sockets = {},
-	send_data = function () {
-	};
+	send_data = function () {};
+
+
+// NoobsFPS = 10,	};
 
 server.listen(port);
 console.log('Listening on port ' + port);
