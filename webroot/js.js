@@ -1,9 +1,10 @@
-var io_address = 'http://192.168.0.101:3000',
+var io_address = 'http://localhost:3000',
 	socket = io.connect(io_address),
 	Snakes = {},
 	statistics = [],
-	current_room = '';
-	killed=null;
+	current_room = '',
+	killed=null,
+	glob_snake_name=null;
 
 
 // io_address = 'http://192.168.0.101:3000',
@@ -99,7 +100,7 @@ window.onload = function () {
 			document.getElementById('stats').style.display="block";
 		}
 		if (Snakes[socket_id].snake.length>0) {
-			document.getElementById('stats').innerHTML='You scrored: '+ (Snakes[socket_id].snake.length-4) + ' points.';
+			document.getElementById('stats').innerHTML='Your snake: <strong>'+glob_snake_name+'</strong> scrored '+ (Snakes[socket_id].snake.length-4) + ' points.';
 			for (var i in Snakes[socket_id].snake) {
 				var paras = document.getElementsByClassName(socket_id);
 				while (document.getElementsByClassName(socket_id).length) {
@@ -124,6 +125,7 @@ window.onload = function () {
 function startGame() {
 	if (current_room) {
 		switchScreen(2);
+		glob_snake_name=document.getElementById('snake_name').value;
 		// setTimeout(function () {
 			socket.emit('joinRoom', {room: current_room});
 			
