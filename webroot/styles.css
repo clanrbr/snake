@@ -219,7 +219,8 @@ body {
 .sss{
 	width: 20px;
 	height: 20px;
-	background-color: red;
+	background: url('/images/snake/snake_green.png') red;
+	transform: scaleY(-1);
 	position: absolute; 
 }
 
